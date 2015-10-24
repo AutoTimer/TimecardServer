@@ -45,11 +45,7 @@ public class ResultsSummaryController {
         for(String carNumber : getAListOfUniqueCarNumbers(modifiableResults)){
                 resultsSummary.add(new ResultsSummary(carNumber, getAListOfTimeTaken(modifiableResults, carNumber), calculateTotal(modifiableResults, carNumber)));
         }
-//        for(Result res : modifiableResults){
-//            if(!resultsSummary.contains(res.getCarNumber())) {
-//                resultsSummary.add(new ResultsSummary(res.getCarNumber(), getAListOfTimeTaken(modifiableResults, res.getCarNumber()), calculateTotal(modifiableResults, res.getCarNumber())));
-//            }
-//        }
+
         return resultsSummary;
     }
 
@@ -58,7 +54,8 @@ public class ResultsSummaryController {
         long total = 0;
         for(int i =0; i < result.size(); i++) {
             if(result.get(i).getCarNumber().equals(carNumber)) {
-                total+= (result.get(i).getEndTime() - result.get(i).getStartTime());
+                int penalty = result.get(i).getPenalty() * 5;
+                total+= (result.get(i).getEndTime() - result.get(i).getStartTime() + penalty);
             }
         }
         return total;
@@ -68,7 +65,8 @@ public class ResultsSummaryController {
         List<Long> timeTaken = new ArrayList<>();
         for(int i =0; i < result.size(); i++) {
             if(result.get(i).getCarNumber().equals(carNumber)) {
-                timeTaken.add(result.get(i).getEndTime() - result.get(i).getStartTime());
+                int penalty = result.get(i).getPenalty() * 5;
+                timeTaken.add((result.get(i).getEndTime() - result.get(i).getStartTime()) + penalty);
 
             }
         }
