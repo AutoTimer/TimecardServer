@@ -27,8 +27,6 @@ public class ResultController {
 
   @RequestMapping(method= RequestMethod.GET)
     public List<Result>  getTime() {
-//      List<Result> results = new ArrayList<>();
-//      results.add(new Result("Name", "A1", "A", "1.5", "10.00"));
       return results;
     }
 

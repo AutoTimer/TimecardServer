@@ -7,17 +7,18 @@ public class Result {
     private String carNumber;
     private String layout;
 
-    private String timeTaken;
+    private long startTime;
+    private long endTime;
     private String runTime;
 
     public Result() {
     }
 
-    public Result(String driverName, String carNumber, String layout, String timeTaken, String runTime) {
+    public Result(String driverName, String carNumber, String layout, long startTime, long endTime, String runTime) {
         this.driverName = driverName;
         this.carNumber = carNumber;
         this.layout = layout;
-        this.timeTaken = timeTaken;
+        this.startTime = startTime;
         this.runTime = runTime;
     }
 
@@ -33,8 +34,12 @@ public class Result {
         return layout;
     }
 
-    public String getTimeTaken() {
-        return timeTaken;
+    public long getStartTime() {
+        return startTime;
+    }
+
+    public long getEndTime() {
+        return endTime;
     }
 
     public String getRunTime() {
@@ -53,8 +58,12 @@ public class Result {
         this.layout = layout;
     }
 
-    public void setTimeTaken(String timeTaken) {
-        this.timeTaken = timeTaken;
+    public void setStartTime(long startTime) {
+        this.startTime = startTime;
+    }
+
+    public void setEndTime(long endTime) {
+        this.endTime = endTime;
     }
 
     public void setRunTime(String runTime) {
@@ -63,6 +72,6 @@ public class Result {
     
     @Override
     public String toString() {
-        return String.format("%s,%s,%s,%s,%s", driverName, carNumber, layout, timeTaken, runTime);
+        return String.format("%s,%s,%s,%s,%s,%s", driverName, carNumber, layout, startTime, endTime, runTime);
     }
 }
