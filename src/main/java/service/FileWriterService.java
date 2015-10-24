@@ -18,7 +18,7 @@ public class FileWriterService {
 
     private static final String OUTPUT_FILENAME = "results.csv";
 
-    public void appendStringToFile(Result result) {
+    public void appendResultToFile(Result result) {
         try {
             SimpleDateFormat sdf = new SimpleDateFormat("yyyyddMM_");
             Files.write(Paths.get(String.format("%s%s", sdf.format(new Date()), OUTPUT_FILENAME)), (result.toString() + "\n").getBytes(), StandardOpenOption.CREATE, StandardOpenOption.APPEND);
