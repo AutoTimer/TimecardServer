@@ -3,6 +3,8 @@ package service;
 import model.Result;
 import org.junit.Test;
 
+import static org.junit.Assert.*;
+
 /**
  * Created by alec on 24/10/15.
  */

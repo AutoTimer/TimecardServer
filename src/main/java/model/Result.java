@@ -7,35 +7,13 @@ public class Result {
     private String carNumber;
     private String layout;
 
-    public void setDriverName(String driverName) {
-        this.driverName = driverName;
-    }
-
-    public void setCarNumber(String carNumber) {
-        this.carNumber = carNumber;
-    }
-
-    public void setLayout(String layout) {
-        this.layout = layout;
-    }
-
-    public void setTimeTaken(String timeTaken) {
-        this.timeTaken = timeTaken;
-    }
-
-    public void setRunTime(String runTime) {
-        this.runTime = runTime;
-    }
-
     private String timeTaken;
     private String runTime;
 
     public Result() {
-
     }
 
     public Result(String driverName, String carNumber, String layout, String timeTaken, String runTime) {
-
         this.driverName = driverName;
         this.carNumber = carNumber;
         this.layout = layout;
@@ -61,5 +39,30 @@ public class Result {
 
     public String getRunTime() {
         return runTime;
+    }
+
+    public void setDriverName(String driverName) {
+        this.driverName = driverName;
+    }
+
+    public void setCarNumber(String carNumber) {
+        this.carNumber = carNumber;
+    }
+
+    public void setLayout(String layout) {
+        this.layout = layout;
+    }
+
+    public void setTimeTaken(String timeTaken) {
+        this.timeTaken = timeTaken;
+    }
+
+    public void setRunTime(String runTime) {
+        this.runTime = runTime;
+    }
+    
+    @Override
+    public String toString() {
+        return String.format("%s,%s,%s,%s,%s", driverName, carNumber, layout, timeTaken, runTime);
     }
 }

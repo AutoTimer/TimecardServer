@@ -9,18 +9,21 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.nio.file.StandardOpenOption;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 @Service
 public class FileWriterService {
     private static Logger LOG = LoggerFactory.getLogger(FileWriterService.class);
 
-    private static final String OUTPUT_FILENAME = "test.csv";
+    private static final String OUTPUT_FILENAME = "results.csv";
 
-    public void appendStringToFile(Result result){
+    public void appendStringToFile(Result result) {
         try {
-            Files.write(Paths.get(OUTPUT_FILENAME), result.toString().getBytes(), StandardOpenOption.CREATE,StandardOpenOption.APPEND);
-        }catch (IOException e) {
-            LOG.error(String.format("Something went wrong saving the results file: %s",OUTPUT_FILENAME),e);
+            SimpleDateFormat sdf = new SimpleDateFormat("yyyyddMM_");
+            Files.write(Paths.get(String.format("%s%s", sdf.format(new Date()), OUTPUT_FILENAME)), (result.toString() + "\n").getBytes(), StandardOpenOption.CREATE, StandardOpenOption.APPEND);
+        } catch (IOException e) {
+            LOG.error(String.format("Something went wrong saving the results file: %s", OUTPUT_FILENAME), e);
         }
     }
 }

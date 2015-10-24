@@ -18,11 +18,12 @@ repositories {
 
 dependencies {
     compile 'org.slf4j:slf4j-api:1.7.5'
-    compile "org.springframework.boot:spring-boot-starter-web:1.2.7.RELEASE"
-    compile "org.springframework.boot:spring-boot-starter-web"
-    compile "org.springframework.boot:spring-boot-starter-jetty"
-    compile "org.springframework.boot:spring-boot-starter-actuator"
-    compile "org.slf4j:slf4j-simple:1.6.1"
+    compile("org.springframework.boot:spring-boot-starter-web:1.2.7.RELEASE") {
+        exclude module: 'spring-boot-starter-tomcat'
+    }
+    compile ("org.springframework.boot:spring-boot-starter-jetty")
+    compile ("org.springframework.boot:spring-boot-starter-actuator")
+
 
     testCompile 'junit:junit:4.11'
 }
