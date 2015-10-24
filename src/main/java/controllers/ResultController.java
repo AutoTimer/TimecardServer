@@ -12,7 +12,7 @@ import java.util.List;
 @RestController
 public class ResultController {
 
-    @RequestMapping(value="/save-time", method= RequestMethod.POST)
+    @RequestMapping(value="/result", method= RequestMethod.POST)
     public List<Result> saveTime( @RequestBody Result result) {
         List<Result> results = new ArrayList<>();
         results.add(result);
