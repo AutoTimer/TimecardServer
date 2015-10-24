@@ -3,34 +3,33 @@ package model;
 
 public class Result {
 
-    private String driverName;
     private String carNumber;
-    private String layout;
+    private int layout;
     private long startTime;
     private long endTime;
     private String runTime;
+    private boolean wrongTest;
+    private int penalty;
 
     public Result() {
     }
 
-    public Result(String driverName, String carNumber, String layout, long startTime, long endTime, String runTime) {
-        this.driverName = driverName;
+    public Result(String carNumber, int layout, long startTime, long endTime, String runTime, boolean wrongTest, int penalty) {
         this.carNumber = carNumber;
         this.layout = layout;
         this.startTime = startTime;
         this.endTime = endTime;
         this.runTime = runTime;
+        this.wrongTest = wrongTest;
+        this.penalty = penalty;
     }
 
-    public String getDriverName() {
-        return driverName;
-    }
 
     public String getCarNumber() {
         return carNumber;
     }
 
-    public String getLayout() {
+    public int getLayout() {
         return layout;
     }
 
@@ -46,15 +45,19 @@ public class Result {
         return runTime;
     }
 
-    public void setDriverName(String driverName) {
-        this.driverName = driverName;
+    public boolean isWrongTest() {
+        return wrongTest;
+    }
+
+    public int getPenalty() {
+        return penalty;
     }
 
     public void setCarNumber(String carNumber) {
         this.carNumber = carNumber;
     }
 
-    public void setLayout(String layout) {
+    public void setLayout(int layout) {
         this.layout = layout;
     }
 
@@ -69,9 +72,17 @@ public class Result {
     public void setRunTime(String runTime) {
         this.runTime = runTime;
     }
-    
+
+    public void setWrongTest(boolean wrongTest) {
+        this.wrongTest = wrongTest;
+    }
+
+    public void setPenalty(int penalty) {
+        this.penalty = penalty;
+    }
+
     @Override
     public String toString() {
-        return String.format("%s,%s,%s,%s,%s,%s", driverName, carNumber, layout, startTime, endTime, runTime);
+        return String.format("%s,%d,%d,%d,%s,%b,%d", carNumber, layout, startTime, endTime, runTime, wrongTest, penalty);
     }
 }
