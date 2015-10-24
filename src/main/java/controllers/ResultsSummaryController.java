@@ -41,12 +41,16 @@ public class ResultsSummaryController {
         });
 
         List<ResultsSummary> resultsSummary = new ArrayList<>();
-        List<ResultsSummary> resultsSummary1 = new ArrayList<>(new LinkedHashSet<>(resultsSummary));
 
-        for(Result res : modifiableResults){
-            resultsSummary1.add(new ResultsSummary(res.getCarNumber(), getAListOfTimeTaken(modifiableResults, res.getCarNumber()), calculateTotal(modifiableResults, res.getCarNumber())));
+        for(String carNumber : getAListOfUniqueCarNumbers(modifiableResults)){
+                resultsSummary.add(new ResultsSummary(carNumber, getAListOfTimeTaken(modifiableResults, carNumber), calculateTotal(modifiableResults, carNumber)));
         }
-        return resultsSummary1;
+//        for(Result res : modifiableResults){
+//            if(!resultsSummary.contains(res.getCarNumber())) {
+//                resultsSummary.add(new ResultsSummary(res.getCarNumber(), getAListOfTimeTaken(modifiableResults, res.getCarNumber()), calculateTotal(modifiableResults, res.getCarNumber())));
+//            }
+//        }
+        return resultsSummary;
     }
 
 
@@ -69,5 +73,13 @@ public class ResultsSummaryController {
             }
         }
         return timeTaken;
+    }
+
+    private Set<String> getAListOfUniqueCarNumbers(List<Result> result) {
+        Set<String> carNumbers = new HashSet<>();
+        for(Result res : result){
+            carNumbers.add(res.getCarNumber());
+        }
+        return  carNumbers;
     }
 }
