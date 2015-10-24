@@ -6,7 +6,6 @@ public class Result {
     private String driverName;
     private String carNumber;
     private String layout;
-
     private long startTime;
     private long endTime;
     private String runTime;
@@ -19,6 +18,7 @@ public class Result {
         this.carNumber = carNumber;
         this.layout = layout;
         this.startTime = startTime;
+        this.endTime = endTime;
         this.runTime = runTime;
     }
 
