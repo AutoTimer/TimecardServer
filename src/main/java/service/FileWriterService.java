@@ -20,7 +20,7 @@ public class FileWriterService {
 
     public void appendResultToFile(Result result) {
         try {
-            SimpleDateFormat sdf = new SimpleDateFormat("yyyyddMM_");
+            SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd_");
             Files.write(Paths.get(String.format("%s%s", sdf.format(new Date()), OUTPUT_FILENAME)), (result.toString() + "\n").getBytes(), StandardOpenOption.CREATE, StandardOpenOption.APPEND);
         } catch (IOException e) {
             LOG.error(String.format("Something went wrong saving the results file: %s", OUTPUT_FILENAME), e);
