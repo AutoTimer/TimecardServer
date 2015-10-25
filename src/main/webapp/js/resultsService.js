@@ -17,6 +17,17 @@
                         deferred.reject(data+":"+status);
                     });
                 return deferred.promise;
+            },
+            notifyWinner:function(){
+                var deferred = $q.defer();
+                var getUrl = "http://localhost:8080/send-text-message";
+                $http.get(getUrl)
+                    .success(function (data) {
+                        deferred.resolve(data);
+                    }).error(function (data, status) {
+                        deferred.reject(data+":"+status);
+                    });
+                return deferred.promise;
             }
         }
 
