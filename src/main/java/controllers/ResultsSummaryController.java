@@ -2,6 +2,7 @@ package controllers;
 
 import model.Result;
 import model.ResultsSummary;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -13,10 +14,16 @@ import java.util.*;
 @EnableAutoConfiguration
 @RequestMapping("/results-summary")
 public class ResultsSummaryController {
+    private FileWriterService fileWriterService;
+
+    @Autowired
+    public ResultsSummaryController(FileWriterService fileWriterService) {
+        this.fileWriterService = fileWriterService;
+    }
 
     @RequestMapping(method= RequestMethod.GET)
     public List<ResultsSummary> getTime() {
-        List<Result> modifiableResults = new ArrayList<>(ResultController.results);
+        List<Result> modifiableResults = fileWriterService.readFromFile();
 
         Collections.sort(modifiableResults, new Comparator<Result>() {
 

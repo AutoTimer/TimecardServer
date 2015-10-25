@@ -24,6 +24,18 @@ public class Result {
         this.penalty = penalty;
     }
 
+    public Result(String lineFromFile) {
+        String[] lines = lineFromFile.split(",");
+        carNumber=lines[0];
+        layout=Integer.parseInt(lines[1]);
+        startTime=Long.parseLong(lines[2]);
+        endTime=Long.parseLong(lines[3]);
+        runTime=lines[4];
+        wrongTest=Boolean.parseBoolean(lines[5]);
+        penalty=Integer.parseInt(lines[6]);
+
+    }
+
 
     public String getCarNumber() {
         return carNumber;
