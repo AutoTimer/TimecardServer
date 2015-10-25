@@ -23,6 +23,10 @@ public class ResultsSummaryController {
 
     @RequestMapping(method= RequestMethod.GET)
     public List<ResultsSummary> getTime() {
+        return calculateResultSummary();
+    }
+
+    public List<ResultsSummary> calculateResultSummary() {
         List<Result> modifiableResults = fileWriterService.readFromFile();
 
         Collections.sort(modifiableResults, new Comparator<Result>() {
@@ -50,7 +54,7 @@ public class ResultsSummaryController {
         List<ResultsSummary> resultsSummary = new ArrayList<>();
 
         for(String carNumber : getAListOfUniqueCarNumbers(modifiableResults)){
-                resultsSummary.add(new ResultsSummary(carNumber, getAListOfTimeTaken(modifiableResults, carNumber), calculateTotal(modifiableResults, carNumber)));
+            resultsSummary.add(new ResultsSummary(carNumber, getAListOfTimeTaken(modifiableResults, carNumber), calculateTotal(modifiableResults, carNumber)));
         }
 
         Collections.sort(resultsSummary, new Comparator<ResultsSummary>() {
