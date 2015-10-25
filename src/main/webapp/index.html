@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+
+<html ng-app="springFun">
+
+<head>
+    <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css">
+
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.0/jquery.min.js"></script>
+    <script src="//netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.0-beta.4/angular.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.0-beta.4/angular-route.min.js"></script>
+    <script src="js/application.js"></script>
+    <script src="js/controllers.js"></script>
+</head>
+
+<body>
+
+<nav class="navbar navbar-default" role="navigation">
+    <div class="container-fluid">
+        <div class="navbar-header">
+            <a class="navbar-brand" href="#/index">Spring Boot Fun</a>
+        </div>
+        <div class="collapse navbar-collapse">
+            <ul class="nav navbar-nav">
+                <li><a href="#/list">Messages list</a></li>
+                <li><a href="#/about">About</a></li>
+            </ul>
+        </div>
+    </div>
+</nav>
+
+<div ng-view></div>
+
+<footer class="text-center">
+    Spring Boot Fun
+</footer>
+
+</body>
+
+</html>
