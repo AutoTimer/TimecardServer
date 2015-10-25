@@ -7,19 +7,18 @@ public class Result {
     private int layout;
     private long startTime;
     private long endTime;
-    private String runTime;
     private boolean wrongTest;
     private int penalty;
+    private String marshalName;
 
     public Result() {
     }
 
-    public Result(String carNumber, int layout, long startTime, long endTime, String runTime, boolean wrongTest, int penalty) {
+    public Result(String carNumber, int layout, long startTime, long endTime, boolean wrongTest, int penalty) {
         this.carNumber = carNumber;
         this.layout = layout;
         this.startTime = startTime;
         this.endTime = endTime;
-        this.runTime = runTime;
         this.wrongTest = wrongTest;
         this.penalty = penalty;
     }
@@ -30,10 +29,18 @@ public class Result {
         layout=Integer.parseInt(lines[1]);
         startTime=Long.parseLong(lines[2]);
         endTime=Long.parseLong(lines[3]);
-        runTime=lines[4];
-        wrongTest=Boolean.parseBoolean(lines[5]);
-        penalty=Integer.parseInt(lines[6]);
+        wrongTest=Boolean.parseBoolean(lines[4]);
+        penalty=Integer.parseInt(lines[5]);
+        marshalName=lines[6];
 
+    }
+
+    public String getMarshalName() {
+        return marshalName;
+    }
+
+    public void setMarshalName(String marshalName) {
+        this.marshalName = marshalName;
     }
 
 
@@ -51,10 +58,6 @@ public class Result {
 
     public long getEndTime() {
         return endTime;
-    }
-
-    public String getRunTime() {
-        return runTime;
     }
 
     public boolean isWrongTest() {
@@ -81,9 +84,6 @@ public class Result {
         this.endTime = endTime;
     }
 
-    public void setRunTime(String runTime) {
-        this.runTime = runTime;
-    }
 
     public void setWrongTest(boolean wrongTest) {
         this.wrongTest = wrongTest;
@@ -95,6 +95,6 @@ public class Result {
 
     @Override
     public String toString() {
-        return String.format("%s,%d,%d,%d,%s,%b,%d", carNumber, layout, startTime, endTime, runTime, wrongTest, penalty);
+        return String.format("%s,%d,%d,%d,%b,%d,%s", carNumber, layout, startTime, endTime, wrongTest, penalty, marshalName);
     }
 }

@@ -53,6 +53,12 @@ public class ResultsSummaryController {
                 resultsSummary.add(new ResultsSummary(carNumber, getAListOfTimeTaken(modifiableResults, carNumber), calculateTotal(modifiableResults, carNumber)));
         }
 
+        Collections.sort(resultsSummary, new Comparator<ResultsSummary>() {
+            public int compare(ResultsSummary r1, ResultsSummary r2) {
+                return (r1.getTotal() < r2.getTotal())? -1 : 1;
+            }
+        });
+
         return resultsSummary;
     }
 
