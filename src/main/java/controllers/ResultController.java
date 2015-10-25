@@ -1,6 +1,7 @@
 package controllers;
 
 import model.Result;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -14,7 +15,9 @@ import java.util.concurrent.CopyOnWriteArrayList;
 @EnableAutoConfiguration
 @RequestMapping("/result")
 public class ResultController {
-    public static List<Result> results = new CopyOnWriteArrayList<>();
+    private List<Result> results = new CopyOnWriteArrayList<>();
+    @Autowired
+    private FileWriterService fileWriterService;
 
     @RequestMapping(method= RequestMethod.POST, consumes="application/json")
     public void saveTime(@RequestBody Result result) {
@@ -25,6 +28,7 @@ public class ResultController {
 
   @RequestMapping(method= RequestMethod.GET)
     public List<Result> getTime() {
+      results = fileWriterService.readFromFile();
       return results;
   }
 
