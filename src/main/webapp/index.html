@@ -32,19 +32,19 @@
         <tr>
             <th>Car Number</th>
             <th><table>
-                        <th ng-repeat="runTime in displayResults.results[displayResults.currentLargestIndex].timesTaken"
+                        <th ng-repeat="runTime in displayResults.results[displayResults.currentLargestIndex].timesTaken track by $index"
                              style="width:55px; border-left-style: solid; border-right-style: solid; border-width: 1px;border-color: black; padding-left: 10px; padding-right: 10px">Run{{$index+1}}</th>
                     </table>
             </th>
             <th>Total Run Times</th>
         </tr>
-        <tr style="border-top-style: solid; border-bottom-style: solid; border-width: 1px;border-color: black" ng-repeat="car in displayResults.results">
+        <tr style="border-top-style: solid; border-bottom-style: solid; border-width: 1px;border-color: black" ng-repeat="car in displayResults.results track by $index">
             <td>{{car.carNumber}}</td>
             <!--<td ng-repeat="runTime in car.timesTaken">{{runTime}}</td>-->
             <td>
                 <table>
                     <tr>
-                        <td style="width:55px; border-left-style: solid; border-right-style: solid; border-width: 1px;border-color: black; text-align: right"ng-repeat="runTime in car.timesTaken">
+                        <td style="width:55px; border-left-style: solid; border-right-style: solid; border-width: 1px;border-color: black; text-align: right"ng-repeat="runTime in car.timesTaken track by $index">
                             {{runTime|seconds}}
                         </td>
                     </tr>
