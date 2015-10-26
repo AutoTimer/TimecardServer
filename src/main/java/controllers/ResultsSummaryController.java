@@ -71,7 +71,7 @@ public class ResultsSummaryController {
         long total = 0;
         for(int i =0; i < result.size(); i++) {
             if(result.get(i).getCarNumber().equals(carNumber)) {
-                int penalty = result.get(i).getPenalty() * 5;
+                int penalty = result.get(i).getPenalty() * 5000;
                 total+= (result.get(i).getEndTime() - result.get(i).getStartTime() + penalty);
             }
         }
@@ -82,7 +82,7 @@ public class ResultsSummaryController {
         List<Long> timeTaken = new ArrayList<>();
         for(int i =0; i < result.size(); i++) {
             if(result.get(i).getCarNumber().equals(carNumber)) {
-                int penalty = result.get(i).getPenalty() * 5;
+                int penalty = result.get(i).getPenalty() * 5000;
                 timeTaken.add((result.get(i).getEndTime() - result.get(i).getStartTime()) + penalty);
 
             }
