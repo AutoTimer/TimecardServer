@@ -24,6 +24,10 @@ public class Time {
         this.elapsedTimeWithPenalties = rawTime.getEndTime() - rawTime.getEndTime() + rawTime.getPenalty() * TIME_PER_PENALTY;
     }
 
+    public Time(String layout) {
+        this.layout = layout;
+    }
+
     public String getLayout() {
         return layout;
     }

@@ -25,16 +25,17 @@ public class ResultsSummaryControllerTest extends TestCase {
     public void testCalculateResultSummary() throws Exception {
         when(fileWriterService.readFromFile()).thenReturn(
                 Arrays.asList(
-                        new RawTime("a1,1,0,1000,false,0,alec"),
-                        new RawTime("b1,1,1,2000,false,0,alec"),
-                        new RawTime("a1,2,2,3000,false,0,alec")
+                        new RawTime("a1,a,0,1000,false,0,alec"),
+                        new RawTime("b1,a,1,2000,false,0,alec"),
+                        new RawTime("a1,b,2,3000,false,0,alec")
                 )
         );
         ResultsSummaryController resultsSummaryController = new ResultsSummaryController(fileWriterService);
         Event event = resultsSummaryController.calculateResultSummary();
-        assertThat(event.getResultSummaries().get("a1").getLayouts().get("1")).hasSize(1);
-        //assertThat(event.get(0).getTimes()).hasSize(2);
-        //assertThat(event.get(1).getTimes()).hasSize(2);
+        assertThat(event.getResultSummaries().get("a1").getLayouts().get("a")).hasSize(1);
+        assertThat(event.getResultSummaries().get("a1").getLayouts().get("b")).hasSize(1);
+        assertThat(event.getResultSummaries().get("b1").getLayouts().get("a")).hasSize(1);
+        assertThat(event.getResultSummaries().get("b1").getLayouts().get("b")).hasSize(1);
 
     }
 }
