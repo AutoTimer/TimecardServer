@@ -1,20 +1,20 @@
 package model;
 
 
-public class Result {
+public class RawTime {
 
     private String carNumber;
-    private int layout;
+    private String layout;
     private long startTime;
     private long endTime;
     private boolean wrongTest;
     private int penalty;
     private String marshalName;
 
-    public Result() {
+    public RawTime() {
     }
 
-    public Result(String carNumber, int layout, long startTime, long endTime, boolean wrongTest, int penalty) {
+    public RawTime(String carNumber, String layout, long startTime, long endTime, boolean wrongTest, int penalty) {
         this.carNumber = carNumber;
         this.layout = layout;
         this.startTime = startTime;
@@ -23,10 +23,10 @@ public class Result {
         this.penalty = penalty;
     }
 
-    public Result(String lineFromFile) {
+    public RawTime(String lineFromFile) {
         String[] lines = lineFromFile.split(",");
         carNumber=lines[0];
-        layout=Integer.parseInt(lines[1]);
+        layout=lines[1];
         startTime=Long.parseLong(lines[2]);
         endTime=Long.parseLong(lines[3]);
         wrongTest=Boolean.parseBoolean(lines[4]);
@@ -48,7 +48,7 @@ public class Result {
         return carNumber;
     }
 
-    public int getLayout() {
+    public String getLayout() {
         return layout;
     }
 
@@ -72,7 +72,7 @@ public class Result {
         this.carNumber = carNumber;
     }
 
-    public void setLayout(int layout) {
+    public void setLayout(String layout) {
         this.layout = layout;
     }
 
@@ -95,6 +95,6 @@ public class Result {
 
     @Override
     public String toString() {
-        return String.format("%s,%d,%d,%d,%b,%d,%s", carNumber, layout, startTime, endTime, wrongTest, penalty, marshalName);
+        return String.format("%s,%s,%d,%d,%b,%d,%s", carNumber, layout, startTime, endTime, wrongTest, penalty, marshalName);
     }
 }

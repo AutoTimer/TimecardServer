@@ -16,7 +16,7 @@
             displayResults.currentLargestIndex = 0;
             angular.forEach(displayResults.results,function(value, key)
             {
-                if(value.timesTaken.length>largestNumberOfRuns){
+                if(value.layouts.length>largestNumberOfRuns){
                     largestNumberOfRuns = value.timesTaken.length;
                     displayResults.currentLargestIndex = key;
                 }

@@ -1,7 +1,7 @@
 package service;
 
 import controllers.FileWriterService;
-import model.Result;
+import model.RawTime;
 import org.junit.Test;
 
 /**
@@ -14,7 +14,7 @@ public class FileWriterServiceTest {
         FileWriterService fileWriterService = new FileWriterService();
         long startTime = 12345L;
         long endTime =  12345678910L;
-        Result result = new Result("car number", 1, 1, 1, false, 1);
+        RawTime result = new RawTime("car number", "A", 1, 1, false, 1);
         fileWriterService.appendResultToFile(result);
         //if we get here everthing is ok....shonky
     }

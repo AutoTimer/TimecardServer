@@ -8,6 +8,5 @@ public class ServerConfiguration {
 
     public static void main(String[] args) {
         SpringApplication.run(ServerConfiguration.class, args);
-        TextMessagingController.setDriverDetails();
     }
 }
