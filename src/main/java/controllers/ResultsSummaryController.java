@@ -25,10 +25,6 @@ public class ResultsSummaryController {
 
     @RequestMapping(method = RequestMethod.GET)
     public EventResponse getTimes() {
-        return new EventResponse(calculateResultSummary());
-    }
-
-    public Event calculateResultSummary() {
         Event event = new Event();
         List<RawTime> rawTimes = fileWriterService.readFromFile();
         List<Time> times = new ArrayList<>();
@@ -51,6 +47,9 @@ public class ResultsSummaryController {
                 }
             }
         }
+
+        List<LayoutResponse> layouts = new ArrayList<>();
+        maxRunsPerLayout.forEach((layoutName,maxNoOfRuns)->layouts.add(new LayoutResponse(layoutName,maxNoOfRuns)));
 
         //Pad missing layouts within resultsSummary
         for(ResultsSummary resultsSummary:event.getResultSummaries().values()){
@@ -77,6 +76,6 @@ public class ResultsSummaryController {
             resultsSummary.setTotal(totalTime);
         }
 
-        return event;
+        return new EventResponse(event, layouts);
     }
 }

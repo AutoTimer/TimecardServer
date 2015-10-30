@@ -5,8 +5,9 @@ import java.util.List;
 
 public class EventResponse {
     private List<ResultSummaryResponse> results = new ArrayList<>();
+    private List<LayoutResponse> layouts = new ArrayList<>();
 
-    public EventResponse(Event event) {
+    public EventResponse(Event event, List<LayoutResponse> layouts) {
         for(ResultsSummary summary:event.getResultSummaries().values()){
             List<Time> timesToReturn = new ArrayList<>();
             for(List<Time> times:summary.getLayouts().values()){
@@ -14,6 +15,15 @@ public class EventResponse {
             }
             results.add(new ResultSummaryResponse(summary.getCarNumber(), timesToReturn, summary.getTotal()));
         }
+        this.layouts = layouts;
+    }
+
+    public List<LayoutResponse> getLayouts() {
+        return layouts;
+    }
+
+    public void setLayouts(List<LayoutResponse> layouts) {
+        this.layouts = layouts;
     }
 
     public List<ResultSummaryResponse> getResults() {

@@ -14,6 +14,23 @@
     <script src="js/DisplayResultsCtrl.js"></script>
     <script src="js/resultsService.js"></script>
     <script src="js/secondsFilter.js"></script>
+
+    <style>
+        th {
+        border-collapse: collapse;
+        text-align:center;
+        border:solid;
+        background-color:lightgrey;
+        }
+
+        td {
+        width:55px;
+        border:solid;
+        border-width:1px;
+        border-color:black;
+        text-align:right;
+        }
+    </style>
 </head>
 
 <body>
@@ -29,28 +46,24 @@
 <div ng-controller="displayResultsCtrl as displayResults" style="margin:15px">
 
     <table style="width:100%">
+
         <tr>
-            <th>Car Number</th>
-            <th>
-                <table>
-                    <th ng-repeat="runTime in displayResults.resultSummaryResponse[displayResults.currentLargestIndex].times track by $index"
-                        style="width:55px; border-left-style: solid; border-right-style: solid; border-width: 1px;border-color: black; padding-left: 10px; padding-right: 10px">
-                        Run{{$index+1}}
-                    </th>
-                </table>
+            <th rowspan="2">Car Number</th>
+            <th colspan="{{layout.noOfRuns}}" ng-repeat="layout in displayResults.resultSummaryResponse.layouts">
+                Test
             </th>
-            <th>Total Run Times</th>
+            <th rowspan="2">Total Run Times</th>
         </tr>
+        <tr>
+            <th colspan="{{layout.noOfRuns}}" ng-repeat="layout in displayResults.resultSummaryResponse.layouts">
+                {{layout.name}}
+            </th>
+        </tr>
+
         <tr ng-repeat="car in displayResults.resultSummaryResponse.results">
             <td>{{car.carNumber}}</td>
-            <td>
-                <table>
-                    <tr>
-                        <td style="width:55px; border-left-style: solid; border-right-style: solid; border-width: 1px;border-color: black; text-align: right"
-                            ng-repeat="time in car.times">{{time.elapsedTimeWithPenalties|seconds}}
-                        </td>
-                    </tr>
-                </table>
+            <td ng-repeat="time in car.times">
+                {{time.elapsedTimeWithPenalties|seconds}}
             </td>
             <td style="text-align: right">{{car.totalTime|seconds}}</td>
         </tr>
