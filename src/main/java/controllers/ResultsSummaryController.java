@@ -24,8 +24,8 @@ public class ResultsSummaryController {
     }
 
     @RequestMapping(method = RequestMethod.GET)
-    public Event getTime() {
-        return calculateResultSummary();
+    public EventResponse getTimes() {
+        return new EventResponse(calculateResultSummary());
     }
 
     public Event calculateResultSummary() {
@@ -41,7 +41,6 @@ public class ResultsSummaryController {
         times.sort((t1, t2)->signum(t1.getElapsedTimeWithPenalties() - t2.getElapsedTimeWithPenalties()));
         event.addAll(times);
 
-        //pad here with zeros for missing runs
         Map<String,Integer> maxRunsPerLayout = new TreeMap<>();
         for(ResultsSummary resultsSummary:event.getResultSummaries().values()){
             for(Map.Entry<String,List<Time>> layout:resultsSummary.getLayouts().entrySet()){
@@ -54,7 +53,6 @@ public class ResultsSummaryController {
         }
 
         //Pad missing layouts within resultsSummary
-        //TODO
         for(ResultsSummary resultsSummary:event.getResultSummaries().values()){
             for(String layout:maxRunsPerLayout.keySet()){
                 Map<String,List<Time>> thisCarsLayouts = resultsSummary.getLayouts();
@@ -78,7 +76,6 @@ public class ResultsSummaryController {
             }
             resultsSummary.setTotal(totalTime);
         }
-
 
         return event;
     }

@@ -26,36 +26,36 @@
     </div>
 </nav>
 
-<div ng-controller="displayResultsCtrl as displayResults"  style="margin:15px">
+<div ng-controller="displayResultsCtrl as displayResults" style="margin:15px">
 
     <table style="width:100%">
         <tr>
             <th>Car Number</th>
-            <th><table>
-                        <th ng-repeat="runTime in displayResults.results[displayResults.currentLargestIndex].times track by $index"
-                             style="width:55px; border-left-style: solid; border-right-style: solid; border-width: 1px;border-color: black; padding-left: 10px; padding-right: 10px">Run{{$index+1}}</th>
-                    </table>
+            <th>
+                <table>
+                    <th ng-repeat="runTime in displayResults.resultSummaryResponse[displayResults.currentLargestIndex].times track by $index"
+                        style="width:55px; border-left-style: solid; border-right-style: solid; border-width: 1px;border-color: black; padding-left: 10px; padding-right: 10px">
+                        Run{{$index+1}}
+                    </th>
+                </table>
             </th>
             <th>Total Run Times</th>
         </tr>
-        <tr style="border-top-style: solid; border-bottom-style: solid; border-width: 1px;border-color: black" ng-repeat="car in displayResults.results track by $index">
+        <tr ng-repeat="car in displayResults.resultSummaryResponse.results">
             <td>{{car.carNumber}}</td>
-            <!--<td ng-repeat="runTime in car.times">{{runTime}}</td>-->
             <td>
                 <table>
                     <tr>
-                        <td style="width:55px; border-left-style: solid; border-right-style: solid; border-width: 1px;border-color: black; text-align: right"ng-repeat="time in car.times track by $index">
-                                    {{time.elapsedTimeWithPenalties|seconds}}
-
+                        <td style="width:55px; border-left-style: solid; border-right-style: solid; border-width: 1px;border-color: black; text-align: right"
+                            ng-repeat="time in car.times">{{time.elapsedTimeWithPenalties|seconds}}
                         </td>
                     </tr>
                 </table>
-                </td>
-            <td  style="text-align: right">{{car.total|seconds}}</td>
+            </td>
+            <td style="text-align: right">{{car.totalTime|seconds}}</td>
         </tr>
     </table>
 
-    <button ng-click="displayResults.notifyWinner()">Notify Winner</button>
 </div>
 
 <footer class="text-center">
