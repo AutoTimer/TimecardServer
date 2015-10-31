@@ -20,7 +20,7 @@ public class Time {
         this.carNumber = rawTime.getCarNumber();
         this.layout = rawTime.getLayout();
         this.wrongTest = rawTime.isWrongTest();
-        this.penaltiesApplied = rawTime.getPenalty()==0;
+        this.penaltiesApplied = rawTime.getPenalty()!=0;
         this.elapsedTimeWithPenalties = rawTime.getEndTime() - rawTime.getEndTime() + rawTime.getPenalty() * TIME_PER_PENALTY;
     }
 
