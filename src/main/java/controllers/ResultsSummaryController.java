@@ -37,33 +37,26 @@ public class ResultsSummaryController {
         times.sort((t1, t2)->signum(t1.getElapsedTimeWithPenalties() - t2.getElapsedTimeWithPenalties()));
         event.addAll(times);
 
-        Map<String,Integer> maxRunsPerLayout = new TreeMap<>();
-        for(ResultsSummary resultsSummary:event.getResultSummaries().values()){
-            for(Map.Entry<String,List<Time>> layout:resultsSummary.getLayouts().entrySet()){
-                maxRunsPerLayout.putIfAbsent(layout.getKey(), 0);
-                int runsInThisLayout = layout.getValue().size();
-                if(maxRunsPerLayout.get(layout.getKey())<runsInThisLayout){
-                    maxRunsPerLayout.put(layout.getKey(), runsInThisLayout);
-                }
-            }
-        }
+        List<LayoutResponse> layouts = getLayouts(event.getResultSummaries().values());
 
-        List<LayoutResponse> layouts = new ArrayList<>();
-        maxRunsPerLayout.forEach((layoutName,maxNoOfRuns)->layouts.add(new LayoutResponse(layoutName,maxNoOfRuns)));
+        padMissingLayouts(event, layouts);
 
-        //Pad missing layouts within resultsSummary
-        for(ResultsSummary resultsSummary:event.getResultSummaries().values()){
-            for(String layout:maxRunsPerLayout.keySet()){
-                Map<String,List<Time>> thisCarsLayouts = resultsSummary.getLayouts();
-                thisCarsLayouts.putIfAbsent(layout,new ArrayList<Time>());
-            }
-        }
+        padMissingTimesAndCalculateTotals(event, layouts);
 
+        return new EventResponse(event, layouts);
+    }
+
+    private void padMissingTimesAndCalculateTotals(Event event, List<LayoutResponse> layouts) {
         //Pad missing times within layout
         for(ResultsSummary resultsSummary:event.getResultSummaries().values()){
             long totalTime = 0;
-            for(Map.Entry<String,List<Time>> layout :resultsSummary.getLayouts().entrySet()){
-                int maxRunsInThisLayout = maxRunsPerLayout.get(layout.getKey());
+            for(Map.Entry<String,List<Time>> layout : resultsSummary.getLayouts().entrySet()){
+                int maxRunsInThisLayout = 0;
+                for(LayoutResponse layoutResponse:layouts){
+                    if(layout.getKey().equals(layoutResponse.getName())){
+                        maxRunsInThisLayout = layoutResponse.getNoOfRuns();
+                    }
+                }
                 int runsInThisLayout = layout.getValue().size();
                 int noOfRunsToPad = maxRunsInThisLayout - runsInThisLayout;
                 List<Time> nonZeroTimes = layout.getValue();
@@ -75,7 +68,32 @@ public class ResultsSummaryController {
             }
             resultsSummary.setTotal(totalTime);
         }
+    }
 
-        return new EventResponse(event, layouts);
+    private void padMissingLayouts(Event event, List<LayoutResponse> layouts) {
+        //Pad missing layouts within resultsSummary
+        for(ResultsSummary resultsSummary:event.getResultSummaries().values()){
+            for(LayoutResponse layout:layouts){
+                Map<String,List<Time>> thisCarsLayouts = resultsSummary.getLayouts();
+                thisCarsLayouts.putIfAbsent(layout.getName(),new ArrayList<Time>());
+            }
+        }
+    }
+
+    private List<LayoutResponse> getLayouts(Collection<ResultsSummary> resultSummaries){
+        Map<String,Integer> maxRunsPerLayout = new TreeMap<>();
+        for(ResultsSummary resultsSummary:resultSummaries){
+            for(Map.Entry<String,List<Time>> layout:resultsSummary.getLayouts().entrySet()){
+                maxRunsPerLayout.putIfAbsent(layout.getKey(), 0);
+                int runsInThisLayout = layout.getValue().size();
+                if(maxRunsPerLayout.get(layout.getKey())<runsInThisLayout){
+                    maxRunsPerLayout.put(layout.getKey(), runsInThisLayout);
+                }
+            }
+        }
+
+        List<LayoutResponse> layouts = new ArrayList<>();
+        maxRunsPerLayout.forEach((layoutName,maxNoOfRuns)->layouts.add(new LayoutResponse(layoutName,maxNoOfRuns)));
+        return layouts;
     }
 }
