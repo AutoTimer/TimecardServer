@@ -21,10 +21,11 @@ public class Time {
         this.layout = rawTime.getLayout();
         this.wrongTest = rawTime.isWrongTest();
         this.penaltiesApplied = rawTime.getPenalty()!=0;
-        this.elapsedTimeWithPenalties = rawTime.getEndTime() - rawTime.getEndTime() + rawTime.getPenalty() * TIME_PER_PENALTY;
+        this.elapsedTimeWithPenalties = rawTime.getEndTime() - rawTime.getStartTime() + rawTime.getPenalty() * TIME_PER_PENALTY;
     }
 
-    public Time(String layout) {
+    public Time(String carNumber, String layout) {
+        this.carNumber = carNumber;
         this.layout = layout;
     }
 
