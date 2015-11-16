@@ -57,6 +57,7 @@
 
         <tr>
             <th rowspan="2">Car Number</th>
+            <th rowspan="2">Class</th>
             <th colspan="{{layout.noOfRuns}}" ng-repeat="layout in displayResults.resultSummaryResponse.layouts">
                 Test
             </th>
@@ -70,6 +71,7 @@
 
         <tr ng-repeat="car in displayResults.resultSummaryResponse.results">
             <td>{{car.carNumber}}</td>
+            <td>{{car.className}}</td>
             <td ng-repeat="time in car.times" ng-class="{'penalty': time.penaltiesApplied, 'wrong-test': time.wrongTest}">
                 {{time.elapsedTimeWithPenalties|seconds}}
             </td>

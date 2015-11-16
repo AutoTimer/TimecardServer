@@ -1,4 +1,4 @@
-package model;
+package timecard.model;
 
 
 import java.util.ArrayList;
@@ -9,12 +9,14 @@ import java.util.TreeMap;
 public class ResultsSummary {
 
     private String carNumber;
+    private final String className;
     private Map<String, List<Time>> layouts;
     private long total;
 
 
-    public ResultsSummary(String carNumber) {
+    public ResultsSummary(String carNumber, String className) {
         this.carNumber = carNumber;
+        this.className = className;
         layouts = new TreeMap<>();
     }
 
@@ -40,6 +42,10 @@ public class ResultsSummary {
 
     public void setLayouts(Map<String, List<Time>> layouts) {
         this.layouts = layouts;
+    }
+
+    public String getClassName() {
+        return className;
     }
 
     public void add(Time time) {

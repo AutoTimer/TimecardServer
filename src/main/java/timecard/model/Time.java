@@ -1,8 +1,9 @@
-package model;
+package timecard.model;
 
 public class Time {
     private static final long TIME_PER_PENALTY = 5000;
 
+    private String className;
     private String carNumber;
     private long elapsedTimeWithPenalties;
     private String layout;
@@ -16,8 +17,9 @@ public class Time {
         this.penaltiesApplied = penaltiesApplied;
     }
 
-    public Time(RawTime rawTime) {
+    public Time(RawTime rawTime, String className) {
         this.carNumber = rawTime.getCarNumber();
+        this.className = className;
         this.layout = rawTime.getLayout();
         this.wrongTest = rawTime.isWrongTest();
         this.penaltiesApplied = rawTime.getPenalty()!=0;
@@ -27,6 +29,14 @@ public class Time {
     public Time(String carNumber, String layout) {
         this.carNumber = carNumber;
         this.layout = layout;
+    }
+
+    public String getClassName() {
+        return className;
+    }
+
+    public void setClassName(String className) {
+        this.className = className;
     }
 
     public String getLayout() {

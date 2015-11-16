@@ -1,4 +1,4 @@
-package model;
+package timecard.model;
 
 
 public class RawTime {

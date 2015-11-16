@@ -1,4 +1,4 @@
-package model;
+package timecard.model;
 
 import java.util.List;
 import java.util.Map;
@@ -10,13 +10,6 @@ public class Event {
 
     public Event() {
         this.resultSummaries = new TreeMap<>();
-    }
-
-    private void add(Time time) {
-        String carNumber = time.getCarNumber();
-        resultSummaries.putIfAbsent(carNumber,new ResultsSummary(carNumber));
-        ResultsSummary resultsSummary = resultSummaries.get(carNumber);
-        resultsSummary.add(time);
     }
 
     public void addAll(List<Time> times) {
@@ -31,5 +24,13 @@ public class Event {
 
     public void setResultSummaries(Map<String, ResultsSummary> resultSummaries) {
         this.resultSummaries = resultSummaries;
+    }
+
+    private void add(Time time) {
+        String carNumber = time.getCarNumber();
+        String className = time.getClassName();
+        resultSummaries.putIfAbsent(carNumber,new ResultsSummary(carNumber, className));
+        ResultsSummary resultsSummary = resultSummaries.get(carNumber);
+        resultsSummary.add(time);
     }
 }
