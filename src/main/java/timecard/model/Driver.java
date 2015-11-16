@@ -10,11 +10,14 @@ public class Driver {
 //    private String eventType;
 
     public Driver() {
-
+        carNumber = "";
+        className = "";
     }
 
     public Driver(String line) {
-
+        String[] fields = line.split(",");
+        carNumber = fields[0];
+        className = fields[1];
     }
 
     public String getCarNumber() {
@@ -31,5 +34,9 @@ public class Driver {
 
     public void setClassName(String className) {
         this.className = className;
+    }
+
+    public String toString(){
+        return String.format("%s,%s",carNumber,className);
     }
 }

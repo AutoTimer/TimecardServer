@@ -1,4 +1,4 @@
-package timecard.controller;
+package timecard.service;
 
 import timecard.model.Driver;
 import timecard.model.RawTime;
@@ -28,6 +28,16 @@ public class FileService {
             Files.write(Paths.get(String.format("%s%s", sdf.format(new Date()), RESULTS_FILENAME)), (result.toString() + "\n").getBytes(), StandardOpenOption.CREATE, StandardOpenOption.APPEND);
         } catch (IOException e) {
             LOG.error(String.format("Something went wrong saving the results file: %s", RESULTS_FILENAME), e);
+        }
+    }
+
+    //TODO factor out common file write method
+    synchronized public void appendDriverToFile(Driver driver) {
+        try {
+            SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd_");
+            Files.write(Paths.get(String.format("%s%s", sdf.format(new Date()), DRIVERS_FILENAME)), (driver.toString() + "\n").getBytes(), StandardOpenOption.CREATE, StandardOpenOption.APPEND);
+        } catch (IOException e) {
+            LOG.error(String.format("Something went wrong saving the drivers file: %s", DRIVERS_FILENAME), e);
         }
     }
 

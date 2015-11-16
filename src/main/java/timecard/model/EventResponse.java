@@ -19,7 +19,7 @@ public class EventResponse {
         }
 
         results.sort((driver1, driver2) ->
-                driver1.getClassName() == driver2.getClassName() ?
+                driver1.getClassName().equals(driver2.getClassName()) ?
                 signum(driver1.getTotalTime()-driver2.getTotalTime()) : driver1.getClassName().compareTo(driver2.getClassName()));
 
         this.layouts = layouts;
