@@ -28,8 +28,7 @@ public class Event {
 
     private void add(Time time) {
         String carNumber = time.getCarNumber();
-        Driver driver = time.getDriver();
-        resultSummaries.putIfAbsent(carNumber,new ResultsSummary(carNumber, driver));
+        resultSummaries.putIfAbsent(carNumber,new ResultsSummary(carNumber));
         ResultsSummary resultsSummary = resultSummaries.get(carNumber);
         resultsSummary.add(time);
     }

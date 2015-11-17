@@ -9,14 +9,12 @@ import java.util.TreeMap;
 public class ResultsSummary {
 
     private String carNumber;
-    private Driver driver;
     private Map<String, List<Time>> layouts;
     private long total;
 
 
-    public ResultsSummary(String carNumber, Driver driver) {
+    public ResultsSummary(String carNumber) {
         this.carNumber = carNumber;
-        this.driver = driver;
         layouts = new TreeMap<>();
     }
 
@@ -42,14 +40,6 @@ public class ResultsSummary {
 
     public void setLayouts(Map<String, List<Time>> layouts) {
         this.layouts = layouts;
-    }
-
-    public Driver getDriver() {
-        return driver;
-    }
-
-    public void setDriver(Driver driver) {
-        this.driver = driver;
     }
 
     public void add(Time time) {

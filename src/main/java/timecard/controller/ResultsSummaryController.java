@@ -10,6 +10,8 @@ import timecard.service.FileService;
 
 import java.util.*;
 
+import static java.lang.Long.signum;
+
 @RestController
 @RequestMapping("/results-summary")
 public class ResultsSummaryController {
@@ -43,7 +45,23 @@ public class ResultsSummaryController {
 
         calculateTotals(event);
 
-        return new EventResponse(event, layouts);
+        return buildEventResponse(event, layouts);
+    }
+
+    private EventResponse buildEventResponse(Event event, List<LayoutResponse> layouts) {
+            List<ResultSummaryResponse> results = new ArrayList<>();
+            for(ResultsSummary summary:event.getResultSummaries().values()){
+                List<Time> timesToReturn = new ArrayList<>();
+                for(List<Time> times:summary.getLayouts().values()){
+                    timesToReturn.addAll(times);
+                }
+                results.add(new ResultSummaryResponse(summary.getCarNumber(), driverService.getDriver(summary.getCarNumber()), timesToReturn, summary.getTotal()));
+            }
+
+            results.sort((summary1, summary2) ->
+                    summary1.getDriver().getClassName().equals(summary2.getDriver().getClassName()) ?
+                            signum(summary1.getTotalTime()-summary2.getTotalTime()) : summary1.getDriver().getClassName().compareTo(summary2.getDriver().getClassName()));
+            return new EventResponse(layouts, results);
     }
 
     private void padMissingTimes(Event event, List<LayoutResponse> layouts) {
