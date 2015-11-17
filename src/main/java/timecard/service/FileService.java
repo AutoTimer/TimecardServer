@@ -25,31 +25,20 @@ public class FileService {
     private static final String DRIVERS_FILENAME = "drivers.csv";
 
     synchronized public void appendResultToFile(RawTime result) {
-        try {
-            SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd_");
-            Files.write(Paths.get(String.format("%s%s", sdf.format(new Date()), RESULTS_FILENAME)), (result.toString() + "\n").getBytes(), StandardOpenOption.CREATE, StandardOpenOption.APPEND);
-        } catch (IOException e) {
-            LOG.error(String.format("Something went wrong saving the results file: %s", RESULTS_FILENAME), e);
-        }
+        appendLineToFile(result.toString(), RESULTS_FILENAME);
     }
 
-    //TODO factor out common file write method
     synchronized public void appendDriverToFile(Driver driver) {
-        try {
-            SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd_");
-            Files.write(Paths.get(String.format("%s%s", sdf.format(new Date()), DRIVERS_FILENAME)), (driver.toString() + "\n").getBytes(), StandardOpenOption.CREATE, StandardOpenOption.APPEND);
-        } catch (IOException e) {
-            LOG.error(String.format("Something went wrong saving the drivers file: %s", DRIVERS_FILENAME), e);
-        }
+        appendLineToFile(driver.toString(), DRIVERS_FILENAME);
     }
 
     synchronized public List<RawTime> readResultsFromFile() {
-        return readEntitiesFromFile(RawTime.class,RESULTS_FILENAME);
+        return readEntitiesFromFile(RawTime.class, RESULTS_FILENAME);
     }
 
     //TODO extract this to a common file reading method
     synchronized public List<Driver> readDriversFromFile() {
-        return readEntitiesFromFile(Driver.class,DRIVERS_FILENAME);
+        return readEntitiesFromFile(Driver.class, DRIVERS_FILENAME);
     }
 
     private <T> List<T> readEntitiesFromFile(Class<T> clazz, String filename) {
@@ -65,5 +54,14 @@ public class FileService {
             LOG.error(String.format("Something went wrong reading the file: %s%s", sdf.format(new Date()), filename), e);
         }
         return result;
+    }
+
+    private void appendLineToFile(String line, String filename) {
+        try {
+            SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd_");
+            Files.write(Paths.get(String.format("%s%s", sdf.format(new Date()), filename)), (line + "\n").getBytes(), StandardOpenOption.CREATE, StandardOpenOption.APPEND);
+        } catch (IOException e) {
+            LOG.error(String.format("Something went wrong saving the drivers file: %s", filename), e);
+        }
     }
 }
