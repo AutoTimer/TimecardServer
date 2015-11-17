@@ -29,7 +29,7 @@ public class ResultsSummaryController {
         List<Time> times = new ArrayList<>();
 
         for (RawTime rawTime : rawTimes) {
-            Time time = new Time(rawTime, driverService.getClassName(rawTime.getCarNumber()));
+            Time time = new Time(rawTime, driverService.getDriver(rawTime.getCarNumber()));
             times.add(time);
         }
 

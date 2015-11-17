@@ -15,12 +15,12 @@ public class EventResponse {
             for(List<Time> times:summary.getLayouts().values()){
                 timesToReturn.addAll(times);
             }
-            results.add(new ResultSummaryResponse(summary.getCarNumber(), summary.getClassName(), timesToReturn, summary.getTotal()));
+            results.add(new ResultSummaryResponse(summary.getCarNumber(), summary.getDriver(), timesToReturn, summary.getTotal()));
         }
 
-        results.sort((driver1, driver2) ->
-                driver1.getClassName().equals(driver2.getClassName()) ?
-                signum(driver1.getTotalTime()-driver2.getTotalTime()) : driver1.getClassName().compareTo(driver2.getClassName()));
+        results.sort((summary1, summary2) ->
+                summary1.getDriver().getClassName().equals(summary2.getDriver().getClassName()) ?
+                signum(summary1.getTotalTime()-summary2.getTotalTime()) : summary1.getDriver().getClassName().compareTo(summary2.getDriver().getClassName()));
 
         this.layouts = layouts;
     }

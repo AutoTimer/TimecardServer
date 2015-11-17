@@ -3,7 +3,7 @@ package timecard.model;
 public class Time {
     private static final long TIME_PER_PENALTY = 5000;
 
-    private String className;
+    private Driver driver;
     private String carNumber;
     private long elapsedTimeWithPenalties;
     private String layout;
@@ -17,9 +17,9 @@ public class Time {
         this.penaltiesApplied = penaltiesApplied;
     }
 
-    public Time(RawTime rawTime, String className) {
+    public Time(RawTime rawTime, Driver driver) {
         this.carNumber = rawTime.getCarNumber();
-        this.className = className;
+        this.driver = driver;
         this.layout = rawTime.getLayout();
         this.wrongTest = rawTime.isWrongTest();
         this.penaltiesApplied = rawTime.getPenalty()!=0;
@@ -29,14 +29,6 @@ public class Time {
     public Time(String carNumber, String layout) {
         this.carNumber = carNumber;
         this.layout = layout;
-    }
-
-    public String getClassName() {
-        return className;
-    }
-
-    public void setClassName(String className) {
-        this.className = className;
     }
 
     public String getLayout() {
@@ -81,6 +73,14 @@ public class Time {
 
     public void setCarNumber(String carNumber) {
         this.carNumber = carNumber;
+    }
+
+    public Driver getDriver() {
+        return driver;
+    }
+
+    public void setDriver(Driver driver) {
+        this.driver = driver;
     }
 
     @Override

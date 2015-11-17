@@ -15,9 +15,9 @@ public class DriverService {
         this.fileService = fileService;
     }
 
-    public String getClassName(String carNumber) {
+    public Driver getDriver(String carNumber) {
         List<Driver> drivers = fileService.readDriversFromFile();
         Driver result = drivers.stream().filter(driver -> driver.getCarNumber().equals(carNumber)).findFirst().orElse(new Driver());
-        return result.getClassName();
+        return result;
     }
 }

@@ -9,14 +9,14 @@ import java.util.TreeMap;
 public class ResultsSummary {
 
     private String carNumber;
-    private final String className;
+    private Driver driver;
     private Map<String, List<Time>> layouts;
     private long total;
 
 
-    public ResultsSummary(String carNumber, String className) {
+    public ResultsSummary(String carNumber, Driver driver) {
         this.carNumber = carNumber;
-        this.className = className;
+        this.driver = driver;
         layouts = new TreeMap<>();
     }
 
@@ -44,8 +44,12 @@ public class ResultsSummary {
         this.layouts = layouts;
     }
 
-    public String getClassName() {
-        return className;
+    public Driver getDriver() {
+        return driver;
+    }
+
+    public void setDriver(Driver driver) {
+        this.driver = driver;
     }
 
     public void add(Time time) {

@@ -5,25 +5,25 @@ import java.util.List;
 public class ResultSummaryResponse {
 
     private String carNumber;
-    private String className;
+    private Driver driver;
     private List<LayoutResponse> layouts;
     private List<Time> times;
     private long totalTime;
 
 
-    public ResultSummaryResponse(String carNumber, String className, List<Time> times, long totalTime) {
+    public ResultSummaryResponse(String carNumber, Driver driver, List<Time> times, long totalTime) {
         this.carNumber = carNumber;
-        this.className = className;
+        this.driver = driver;
         this.times = times;
         this.totalTime = totalTime;
     }
 
-    public String getClassName() {
-        return className;
+    public Driver getDriver() {
+        return driver;
     }
 
-    public void setClassName(String className) {
-        this.className = className;
+    public void setDriver(Driver driver) {
+        this.driver = driver;
     }
 
     public String getCarNumber() {
