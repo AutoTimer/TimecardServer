@@ -7,6 +7,8 @@ import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
 import java.io.IOException;
+import java.lang.reflect.Constructor;
+import java.lang.reflect.InvocationTargetException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.nio.file.StandardOpenOption;
@@ -41,31 +43,26 @@ public class FileService {
         }
     }
 
-    synchronized public List<RawTime> readResultsFromFile(){
-        List<RawTime> result = new ArrayList<>();
-        SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd_");
-        try {
-            List<String> lines = Files.readAllLines(Paths.get(String.format("%s%s", sdf.format(new Date()), RESULTS_FILENAME)));
-            for(String line:lines){
-                result.add(new RawTime(line));
-            }
-        } catch (IOException e) {
-            LOG.error(String.format("Something went wrong reading the results file: %s", String.format("%s%s", sdf.format(new Date()), RESULTS_FILENAME)),e);
-        }
-        return result;
+    synchronized public List<RawTime> readResultsFromFile() {
+        return readEntitiesFromFile(RawTime.class,RESULTS_FILENAME);
     }
 
     //TODO extract this to a common file reading method
     synchronized public List<Driver> readDriversFromFile() {
-        List<Driver> result = new ArrayList<>();
+        return readEntitiesFromFile(Driver.class,DRIVERS_FILENAME);
+    }
+
+    private <T> List<T> readEntitiesFromFile(Class<T> clazz, String filename) {
+        List<T> result = new ArrayList<>();
         SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd_");
         try {
-            List<String> lines = Files.readAllLines(Paths.get(String.format("%s%s", sdf.format(new Date()), DRIVERS_FILENAME)));
-            for(String line:lines){
-                result.add(new Driver(line));
+            List<String> lines = Files.readAllLines(Paths.get(String.format("%s%s", sdf.format(new Date()), filename)));
+            for (String line : lines) {
+                result.add(clazz.getConstructor(String.class).newInstance(line));
             }
-        } catch (IOException e) {
-            LOG.error(String.format("Something went wrong reading the drivers file: %s", String.format("%s%s", sdf.format(new Date()), DRIVERS_FILENAME)),e);
+        } catch (IOException | NoSuchMethodException | InstantiationException | IllegalArgumentException |
+                IllegalAccessException | InvocationTargetException e) {
+            LOG.error(String.format("Something went wrong reading the file: %s%s", sdf.format(new Date()), filename), e);
         }
         return result;
     }
