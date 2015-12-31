@@ -10,8 +10,6 @@ import timecard.service.FileService;
 
 import java.util.*;
 
-import static java.lang.Long.signum;
-
 @RestController
 @RequestMapping("/results-summary")
 public class ResultsSummaryController {
@@ -52,15 +50,11 @@ public class ResultsSummaryController {
             List<ResultSummaryResponse> results = new ArrayList<>();
             for(ResultsSummary summary:event.getResultSummaries().values()){
                 List<Time> timesToReturn = new ArrayList<>();
-                for(List<Time> times:summary.getLayouts().values()){
-                    timesToReturn.addAll(times);
-                }
+                summary.getLayouts().values().forEach(timesToReturn::addAll);
                 results.add(new ResultSummaryResponse(summary.getCarNumber(), driverService.getDriver(summary.getCarNumber()), timesToReturn, summary.getTotal()));
             }
 
-            results.sort((summary1, summary2) ->
-                    summary1.getDriver().getClassName().equals(summary2.getDriver().getClassName()) ?
-                            signum(summary1.getTotalTime()-summary2.getTotalTime()) : summary1.getDriver().getClassName().compareTo(summary2.getDriver().getClassName()));
+            results.sort(ResultSummaryResponse::compareByEventTypeClassAndTime);
             return new EventResponse(layouts, results);
     }
 
@@ -122,4 +116,6 @@ public class ResultsSummaryController {
         maxRunsPerLayout.forEach((layoutName, maxNoOfRuns) -> layouts.add(new LayoutResponse(layoutName, maxNoOfRuns)));
         return layouts;
     }
+
+
 }

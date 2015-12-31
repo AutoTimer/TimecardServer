@@ -2,6 +2,8 @@ package timecard.model;
 
 import java.util.List;
 
+import static java.lang.Long.signum;
+
 public class ResultSummaryResponse {
 
     private String carNumber;
@@ -48,5 +50,15 @@ public class ResultSummaryResponse {
 
     public void setTotalTime(long totalTime) {
         this.totalTime = totalTime;
+    }
+
+    public static int compareByEventTypeClassAndTime(ResultSummaryResponse a, ResultSummaryResponse b) {
+        if (a.getDriver().getEventType().equals(b.getDriver().getEventType())){
+            if (a.getDriver().getClassName().equals(b.getDriver().getClassName())) {
+                return signum(a.getTotalTime() - b.getTotalTime());
+            }
+            return a.getDriver().getClassName().compareTo(b.getDriver().getClassName());
+        }
+        return a.getDriver().getEventType().compareTo(b.getDriver().getEventType());
     }
 }
