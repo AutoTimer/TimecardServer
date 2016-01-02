@@ -6,7 +6,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 import timecard.model.Driver;
-import timecard.service.FileService;
+import timecard.service.TimesService;
 
 import java.util.List;
 import java.util.concurrent.CopyOnWriteArrayList;
@@ -15,16 +15,16 @@ import java.util.concurrent.CopyOnWriteArrayList;
 @RequestMapping("/driver")
 public class DriverController {
     @Autowired
-    private FileService fileService;
+    private TimesService timesService;
 
     @RequestMapping(method = RequestMethod.POST, consumes = "application/json")
     public void saveDriver(@RequestBody Driver driver) {
-        fileService.appendDriverToFile(driver);
+        timesService.appendDriverToFile(driver);
     }
 
     @RequestMapping(method = RequestMethod.GET)
     public List<Driver> getDrivers() {
         List<Driver> driverResult = new CopyOnWriteArrayList<>();
-        return fileService.readDriversFromFile();
+        return timesService.readDriversFromFile();
     }
 }

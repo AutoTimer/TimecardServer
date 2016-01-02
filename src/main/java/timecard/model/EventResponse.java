@@ -1,15 +1,7 @@
 package timecard.model;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Bean;
-import org.springframework.stereotype.Component;
-import timecard.service.DriverService;
-
-import javax.annotation.PostConstruct;
 import java.util.ArrayList;
 import java.util.List;
-
-import static java.lang.Long.signum;
 
 public class EventResponse {
 

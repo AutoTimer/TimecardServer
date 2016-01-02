@@ -7,7 +7,6 @@ import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
 import java.io.IOException;
-import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
@@ -18,8 +17,8 @@ import java.util.Date;
 import java.util.List;
 
 @Service
-public class FileService {
-    private static Logger LOG = LoggerFactory.getLogger(FileService.class);
+public class TimesService {
+    private static Logger LOG = LoggerFactory.getLogger(TimesService.class);
 
     private static final String RESULTS_FILENAME = "results.csv";
     private static final String DRIVERS_FILENAME = "drivers.csv";
