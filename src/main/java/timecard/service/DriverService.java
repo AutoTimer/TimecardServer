@@ -8,15 +8,15 @@ import java.util.List;
 @Service
 public class DriverService {
 
-    private TimesService timesService;
+    private FileService fileService;
 
     @Autowired
-    public DriverService(TimesService timesService) {
-        this.timesService = timesService;
+    public DriverService(FileService timesService) {
+        this.fileService = timesService;
     }
 
     public Driver getDriver(String carNumber) {
-        List<Driver> drivers = timesService.readDriversFromFile();
+        List<Driver> drivers = fileService.readEntitiesFromFile(Driver.class);
         Driver result = drivers.stream().filter(driver -> driver.getCarNumber().equals(carNumber)).findFirst().orElse(new Driver());
         return result;
     }

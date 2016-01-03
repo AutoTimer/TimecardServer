@@ -9,7 +9,7 @@ import timecard.model.EventResponse;
 import timecard.model.RawTime;
 import timecard.service.DriverService;
 import timecard.service.EventTypeService;
-import timecard.service.TimesService;
+import timecard.service.FileService;
 
 import java.util.Arrays;
 
@@ -20,7 +20,7 @@ import static org.mockito.Mockito.when;
 public class ResultsSummaryControllerTest extends TestCase {
 
     @Mock
-    private TimesService timesService;
+    private FileService FileService;
     @Mock
     private DriverService driverService;
     @Mock
@@ -28,7 +28,7 @@ public class ResultsSummaryControllerTest extends TestCase {
 
     @Test
     public void testCalculateResultSummary() throws Exception {
-        when(timesService.readResultsFromFile()).thenReturn(
+        when(FileService.readEntitiesFromFile(RawTime.class)).thenReturn(
                 Arrays.asList(
                         new RawTime("1,1,0,49400,FALSE,0,alec"),
                         new RawTime("1,1,0,41100,FALSE,0,alec"),
@@ -50,7 +50,7 @@ public class ResultsSummaryControllerTest extends TestCase {
                 )
         );
 
-        ResultsSummaryController resultsSummaryController = new ResultsSummaryController(timesService, driverService, eventTypeService);
+        ResultsSummaryController resultsSummaryController = new ResultsSummaryController(FileService, driverService, eventTypeService);
         EventResponse event = resultsSummaryController.getTimes();
         assertThat(event.getResults().get(0).getTotalTime()).isEqualTo(795900);
     }

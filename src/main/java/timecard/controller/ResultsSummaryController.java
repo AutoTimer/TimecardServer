@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.RestController;
 import timecard.model.*;
 import timecard.service.DriverService;
 import timecard.service.EventTypeService;
-import timecard.service.TimesService;
+import timecard.service.FileService;
 
 import java.util.*;
 
@@ -15,12 +15,12 @@ import java.util.*;
 @RequestMapping("/results-summary")
 public class ResultsSummaryController {
     private static final long WRONG_TEST_PENALTY = 30000;
-    private TimesService timesService;
+    private FileService timesService;
     private DriverService driverService;
     private EventTypeService eventTypeService;
 
     @Autowired
-    public ResultsSummaryController(TimesService timesService, DriverService driverService, EventTypeService eventTypeService) {
+    public ResultsSummaryController(FileService timesService, DriverService driverService, EventTypeService eventTypeService) {
         this.timesService = timesService;
         this.driverService = driverService;
         this.eventTypeService = eventTypeService;
@@ -29,7 +29,7 @@ public class ResultsSummaryController {
     @RequestMapping(method = RequestMethod.GET)
     public EventResponse getTimes() {
         Event event = new Event();
-        List<RawTime> rawTimes = timesService.readResultsFromFile();
+        List<RawTime> rawTimes = timesService.readEntitiesFromFile(RawTime.class);
         List<Time> times = new ArrayList<>();
 
         for (RawTime rawTime : rawTimes) {

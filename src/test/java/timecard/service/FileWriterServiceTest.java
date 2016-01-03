@@ -7,11 +7,11 @@ public class FileWriterServiceTest {
 
     @Test
     public void writeToAFileHappyPath(){
-        TimesService timesService = new TimesService();
+        FileService timesService = new FileService();
         long startTime = 12345L;
         long endTime =  12345678910L;
         RawTime result = new RawTime("car number2", "A", 1, 1, false, 1);
-        timesService.appendResultToFile(result);
+        timesService.appendEntityToFile(result);
         //if we get here everthing is ok....shonky
     }
 }
