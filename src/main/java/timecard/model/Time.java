@@ -7,26 +7,31 @@ public class Time {
     private long elapsedTimeWithPenalties;
     private String layout;
     private boolean wrongTest;
-    private boolean penaltiesApplied;
+    private int penalties;
+    private boolean dropped;
 
-    public Time(String layout, long elapsedTimeWithPenalties, boolean wrongTest, boolean penaltiesApplied) {
+    public Time(String layout, long elapsedTimeWithPenalties, boolean wrongTest, int penalties) {
         this.layout = layout;
         this.elapsedTimeWithPenalties = elapsedTimeWithPenalties;
         this.wrongTest = wrongTest;
-        this.penaltiesApplied = penaltiesApplied;
+        this.penalties = penalties;
     }
 
-    public Time(RawTime rawTime, Driver driver) {
+    public Time(RawTime rawTime) {
         this.carNumber = rawTime.getCarNumber();
         this.layout = rawTime.getLayout();
         this.wrongTest = rawTime.isWrongTest();
-        this.penaltiesApplied = rawTime.getPenalty()!=0;
+        this.penalties = rawTime.getPenalty();
         this.elapsedTimeWithPenalties = rawTime.getEndTime() - rawTime.getStartTime() + rawTime.getPenalty() * TIME_PER_PENALTY;
     }
 
     public Time(String carNumber, String layout) {
         this.carNumber = carNumber;
         this.layout = layout;
+    }
+
+    public Time() {
+        this(null,0,false,0);
     }
 
     public String getLayout() {
@@ -53,16 +58,12 @@ public class Time {
         this.wrongTest = wrongTest;
     }
 
-    public boolean getPenaltiesApplied() {
-        return penaltiesApplied;
+    public void setPenalties(int penalties) {
+        this.penalties = penalties;
     }
 
-    public void setPenaltiesApplied(boolean penaltiesApplied) {
-        this.penaltiesApplied = penaltiesApplied;
-    }
-
-    public boolean isPenaltiesApplied() {
-        return penaltiesApplied;
+    public int getPenalties() {
+        return penalties;
     }
 
     public String getCarNumber() {
@@ -80,7 +81,15 @@ public class Time {
                 ", elapsedTimeWithPenalties=" + elapsedTimeWithPenalties +
                 ", layout=" + layout +
                 ", wrongTest=" + wrongTest +
-                ", penaltiesApplied=" + penaltiesApplied +
+                ", penalties=" + penalties +
                 '}';
+    }
+
+    public void setDropped(boolean dropped) {
+        this.dropped = dropped;
+    }
+
+    public boolean isDropped() {
+        return dropped;
     }
 }

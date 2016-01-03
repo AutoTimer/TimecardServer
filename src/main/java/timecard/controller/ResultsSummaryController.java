@@ -6,6 +6,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 import timecard.model.*;
 import timecard.service.DriverService;
+import timecard.service.EventTypeService;
 import timecard.service.TimesService;
 
 import java.util.*;
@@ -16,11 +17,13 @@ public class ResultsSummaryController {
     private static final long WRONG_TEST_PENALTY = 30000;
     private TimesService timesService;
     private DriverService driverService;
+    private EventTypeService eventTypeService;
 
     @Autowired
-    public ResultsSummaryController(TimesService timesService, DriverService driverService) {
+    public ResultsSummaryController(TimesService timesService, DriverService driverService, EventTypeService eventTypeService) {
         this.timesService = timesService;
         this.driverService = driverService;
+        this.eventTypeService = eventTypeService;
     }
 
     @RequestMapping(method = RequestMethod.GET)
@@ -30,7 +33,7 @@ public class ResultsSummaryController {
         List<Time> times = new ArrayList<>();
 
         for (RawTime rawTime : rawTimes) {
-            Time time = new Time(rawTime, driverService.getDriver(rawTime.getCarNumber()));
+            Time time = new Time(rawTime);
             times.add(time);
         }
 
@@ -44,7 +47,27 @@ public class ResultsSummaryController {
 
         calculateTotals(event);
 
+        dropTimes(event);
+
         return buildEventResponse(event, layouts);
+    }
+
+    private void dropTimes(Event event) {
+        event.getResultSummaries().forEach((carNumber, resultsSummary) -> {
+            String eventType = driverService.getDriver(carNumber).getEventType();
+            if (eventTypeService.dropsTimes(eventType)) {
+                for(Map.Entry<String,List<Time>> layout : resultsSummary.getLayouts().entrySet()){
+                    Time maxTimeOnLayout = new Time();
+                    for(Time time : layout.getValue()){
+                        if( time.getElapsedTimeWithPenalties() > maxTimeOnLayout.getElapsedTimeWithPenalties() ){
+                            maxTimeOnLayout = time;
+                        }
+                    }
+                    maxTimeOnLayout.setDropped(true);
+                    resultsSummary.setTotal(resultsSummary.getTotal()-maxTimeOnLayout.getElapsedTimeWithPenalties());
+                }
+            }
+        });
     }
 
     private EventResponse buildEventResponse(Event event, List<LayoutResponse> layouts) {

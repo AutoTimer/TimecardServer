@@ -20,6 +20,16 @@
         background-color:orange;
         }
 
+        .penaltyCount {
+        position: absolute;
+        z-index: 2;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        text-align: left;
+        }
+
         .wrong-test {
         background-color:red;
         }
@@ -37,6 +47,11 @@
         border-width:1px;
         border-color:black;
         text-align:right;
+        position: relative; z-index: 1;
+        }
+
+        .strike {
+        text-decoration: line-through;
         }
     </style>
 </head>
@@ -80,7 +95,10 @@
             <td>{{resultSummary.driver.name}}</td>
             <td>{{resultSummary.driver.carDescription}}</td>
             <td>{{resultSummary.driver.carCapacity}}</td>
-            <td ng-repeat="time in resultSummary.times" ng-class="{'penalty': time.penaltiesApplied, 'wrong-test': time.wrongTest}">
+            <td ng-repeat="time in resultSummary.times" ng-class="{'penalty': time.penalties!=0, 'wrong-test': time.wrongTest, 'strike': time.dropped}">
+                <div ng-if="time.penalties!=0" class="penaltyCount">
+                    {{time.penalties}}
+                </div>
                 {{time.elapsedTimeWithPenalties|seconds}}
             </td>
             <td style="text-align: right">{{resultSummary.totalTime|seconds}}</td>
