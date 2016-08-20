@@ -5,6 +5,7 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
+import timecard.model.Driver;
 import timecard.model.EventResponse;
 import timecard.model.RawTime;
 import timecard.service.DriverService;
@@ -14,6 +15,7 @@ import timecard.service.FileService;
 import java.util.Arrays;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.mockito.Matchers.any;
 import static org.mockito.Mockito.when;
 
 @RunWith(MockitoJUnitRunner.class)
@@ -25,9 +27,13 @@ public class ResultsSummaryControllerTest extends TestCase {
     private DriverService driverService;
     @Mock
     private EventTypeService eventTypeService;
+    @Mock
+    private Driver driver;
 
     @Test
     public void testCalculateResultSummary() throws Exception {
+        when(driverService.getDriver(any())).thenReturn(driver);
+        when(driver.getEventType()).thenReturn("NATB");
         when(FileService.readEntitiesFromFile(RawTime.class)).thenReturn(
                 Arrays.asList(
                         new RawTime("1,1,0,49400,FALSE,0,alec"),
