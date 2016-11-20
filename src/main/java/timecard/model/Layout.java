@@ -1,10 +1,10 @@
 package timecard.model;
 
-public class LayoutResponse {
+public class Layout {
     private String name;
     private int noOfRuns;
 
-    public LayoutResponse(String name, int noOfRuns) {
+    public Layout(String name, int noOfRuns) {
         this.name = name;
         this.noOfRuns = noOfRuns;
     }

@@ -24,7 +24,6 @@ public class DriverController {
 
     @RequestMapping(method = RequestMethod.GET)
     public List<Driver> getDrivers() {
-        List<Driver> driverResult = new CopyOnWriteArrayList<>();
         return driverService.readEntitiesFromFile(Driver.class);
     }
 }

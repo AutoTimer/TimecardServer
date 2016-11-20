@@ -34,7 +34,7 @@ public class FileService {
             }
         } catch (IOException | NoSuchMethodException | InstantiationException | IllegalArgumentException |
                 IllegalAccessException | InvocationTargetException e) {
-            LOG.error(String.format("Something went wrong reading the file: %s", filename), e);
+            LOG.warn(String.format("Something went wrong reading the file: %s", filename), e);
         }
         return result;
     }

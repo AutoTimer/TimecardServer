@@ -6,11 +6,12 @@ import org.junit.runner.RunWith;
 import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
 import timecard.model.Driver;
-import timecard.model.EventResponse;
+import timecard.responses.EventResponse;
 import timecard.model.RawTime;
 import timecard.service.DriverService;
 import timecard.service.EventTypeService;
 import timecard.service.FileService;
+import timecard.service.TimeService;
 
 import java.util.Arrays;
 
@@ -22,7 +23,7 @@ import static org.mockito.Mockito.when;
 public class ResultsSummaryControllerTest extends TestCase {
 
     @Mock
-    private FileService FileService;
+    private FileService fileService;
     @Mock
     private DriverService driverService;
     @Mock
@@ -34,7 +35,7 @@ public class ResultsSummaryControllerTest extends TestCase {
     public void testCalculateResultSummary() throws Exception {
         when(driverService.getDriver(any())).thenReturn(driver);
         when(driver.getEventType()).thenReturn("NATB");
-        when(FileService.readEntitiesFromFile(RawTime.class)).thenReturn(
+        when(fileService.readEntitiesFromFile(RawTime.class)).thenReturn(
                 Arrays.asList(
                         new RawTime("1,1,0,49400,FALSE,0,alec"),
                         new RawTime("1,1,0,41100,FALSE,0,alec"),
@@ -56,7 +57,7 @@ public class ResultsSummaryControllerTest extends TestCase {
                 )
         );
 
-        ResultsSummaryController resultsSummaryController = new ResultsSummaryController(FileService, driverService, eventTypeService);
+        ResultsSummaryController resultsSummaryController = new ResultsSummaryController(new TimeService(fileService), driverService, eventTypeService);
         EventResponse event = resultsSummaryController.getTimes();
         assertThat(event.getResults().get(0).getTotalTime()).isEqualTo(795900);
     }

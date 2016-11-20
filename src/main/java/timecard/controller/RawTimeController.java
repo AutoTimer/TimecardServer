@@ -6,22 +6,20 @@ import org.springframework.web.bind.annotation.*;
 import timecard.service.FileService;
 
 import java.util.List;
-import java.util.concurrent.CopyOnWriteArrayList;
 
 @RestController
-@RequestMapping("/result")
-public class ResultController {
+@RequestMapping("/raw-time")
+public class RawTimeController {
     @Autowired
-    private FileService timesService;
+    private FileService fileService;
 
     @RequestMapping(method = RequestMethod.POST, consumes = "application/json")
     public void saveTime(@RequestBody RawTime result) {
-        timesService.appendEntityToFile(result);
+        fileService.appendEntityToFile(result);
     }
 
     @RequestMapping(method = RequestMethod.GET)
     public List<RawTime> getTime() {
-        List<RawTime> driverResult = new CopyOnWriteArrayList<>();
-        return timesService.readEntitiesFromFile(RawTime.class);
+        return fileService.readEntitiesFromFile(RawTime.class);
     }
 }

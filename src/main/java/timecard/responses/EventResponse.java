@@ -1,11 +1,13 @@
-package timecard.model;
+package timecard.responses;
+
+import timecard.model.Layout;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class EventResponse {
 
-    private List<LayoutResponse> layouts;
+    private List<Layout> layouts;
     private List<ResultSummaryResponse> results;
 
     public EventResponse(){
@@ -13,16 +15,16 @@ public class EventResponse {
         layouts = new ArrayList<>();
     }
 
-    public EventResponse(List<LayoutResponse> layouts, List<ResultSummaryResponse> results) {
+    public EventResponse(List<Layout> layouts, List<ResultSummaryResponse> results) {
         this.layouts = layouts;
         this.results = results;
     }
 
-    public List<LayoutResponse> getLayouts() {
+    public List<Layout> getLayouts() {
         return layouts;
     }
 
-    public void setLayouts(List<LayoutResponse> layouts) {
+    public void setLayouts(List<Layout> layouts) {
         this.layouts = layouts;
     }
 

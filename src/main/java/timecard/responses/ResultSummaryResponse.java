@@ -1,4 +1,8 @@
-package timecard.model;
+package timecard.responses;
+
+import timecard.model.Driver;
+import timecard.model.Layout;
+import timecard.model.Time;
 
 import java.util.List;
 
@@ -8,7 +12,7 @@ public class ResultSummaryResponse {
 
     private String carNumber;
     private Driver driver;
-    private List<LayoutResponse> layouts;
+    private List<Layout> layouts;
     private List<Time> times;
     private long totalTime;
 
