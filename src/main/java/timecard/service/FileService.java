@@ -23,7 +23,7 @@ public class FileService {
     }
 
     synchronized public <T> List<T> readEntitiesFromFile(Class<T> clazz) {
-        List<T> result = new ArrayList<T>();
+        List<T> result = new ArrayList<>();
         SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd_");
         String filename = null;
         try {
@@ -43,7 +43,7 @@ public class FileService {
         Path path = null;
         try {
             SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd_");
-            path = Paths.get(String.format("%s%s", sdf.format(new Date()), object.getClass().getSimpleName()));
+            path = Paths.get(String.format("%s%s.csv", sdf.format(new Date()), object.getClass().getSimpleName().toLowerCase()));
             Files.write(path, (object.toString() + "\n").getBytes(), StandardOpenOption.CREATE, StandardOpenOption.APPEND);
         } catch (IOException e) {
             LOG.error(String.format("Something went wrong appending to the file file: %s", path.getFileName()), e);

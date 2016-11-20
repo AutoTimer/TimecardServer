@@ -15,16 +15,16 @@ import java.util.concurrent.CopyOnWriteArrayList;
 @RequestMapping("/driver")
 public class DriverController {
     @Autowired
-    private FileService timesService;
+    private FileService driverService;
 
     @RequestMapping(method = RequestMethod.POST, consumes = "application/json")
     public void saveDriver(@RequestBody Driver driver) {
-        timesService.appendEntityToFile(driver);
+        driverService.appendEntityToFile(driver);
     }
 
     @RequestMapping(method = RequestMethod.GET)
     public List<Driver> getDrivers() {
         List<Driver> driverResult = new CopyOnWriteArrayList<>();
-        return timesService.readEntitiesFromFile(Driver.class);
+        return driverService.readEntitiesFromFile(Driver.class);
     }
 }
