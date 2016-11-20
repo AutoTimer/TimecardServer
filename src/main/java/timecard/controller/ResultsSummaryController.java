@@ -31,8 +31,7 @@ public class ResultsSummaryController {
 
     @RequestMapping(method = RequestMethod.GET)
     public EventResponse getTimes() {
-        Event event = new Event();
-        event.addAll(timesService.getTimes());
+        Event event = new Event(timesService.getTimes());
 
         List<Layout> layouts = getLayouts(event.getResultSummaries().values());
 

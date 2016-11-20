@@ -12,6 +12,11 @@ public class Event {
         this.resultSummaries = new TreeMap<>();
     }
 
+    public Event(List<Time> times) {
+        this();
+        addAll(times);
+    }
+
     public void addAll(List<Time> times) {
         for(Time time:times){
             add(time);
