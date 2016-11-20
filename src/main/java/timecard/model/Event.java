@@ -1,15 +1,13 @@
 package timecard.model;
 
-import java.util.List;
-import java.util.Map;
-import java.util.TreeMap;
+import java.util.*;
 
 public class Event {
 
-    private Map<String,ResultsSummary> resultSummaries;
+    private Map<String,ResultsSummary> resultSummariesByCar;
 
     public Event() {
-        this.resultSummaries = new TreeMap<>();
+        this.resultSummariesByCar = new TreeMap<>();
     }
 
     public Event(List<Time> times) {
@@ -23,18 +21,35 @@ public class Event {
         }
     }
 
-    public Map<String, ResultsSummary> getResultSummaries() {
-        return resultSummaries;
+    public Map<String, ResultsSummary> getResultSummariesByCar() {
+        return resultSummariesByCar;
     }
 
-    public void setResultSummaries(Map<String, ResultsSummary> resultSummaries) {
-        this.resultSummaries = resultSummaries;
+    public void setResultSummariesByCar(Map<String, ResultsSummary> resultSummariesByCar) {
+        this.resultSummariesByCar = resultSummariesByCar;
+    }
+
+    public List<Layout> getLayouts() {
+        Map<String, Integer> maxRunsPerLayout = new TreeMap<>();
+        for (ResultsSummary resultsSummary : resultSummariesByCar.values()) {
+            for (Map.Entry<String, List<Time>> layout : resultsSummary.getLayouts().entrySet()) {
+                maxRunsPerLayout.putIfAbsent(layout.getKey(), 0);
+                int runsInThisLayout = layout.getValue().size();
+                if (maxRunsPerLayout.get(layout.getKey()) < runsInThisLayout) {
+                    maxRunsPerLayout.put(layout.getKey(), runsInThisLayout);
+                }
+            }
+        }
+
+        List<Layout> layouts = new ArrayList<>();
+        maxRunsPerLayout.forEach((layoutName, maxNoOfRuns) -> layouts.add(new Layout(layoutName, maxNoOfRuns)));
+        return layouts;
     }
 
     private void add(Time time) {
         String carNumber = time.getCarNumber();
-        resultSummaries.putIfAbsent(carNumber,new ResultsSummary(carNumber));
-        ResultsSummary resultsSummary = resultSummaries.get(carNumber);
+        resultSummariesByCar.putIfAbsent(carNumber,new ResultsSummary(carNumber));
+        ResultsSummary resultsSummary = resultSummariesByCar.get(carNumber);
         resultsSummary.add(time);
     }
 }

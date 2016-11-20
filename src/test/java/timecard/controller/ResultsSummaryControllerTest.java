@@ -57,7 +57,7 @@ public class ResultsSummaryControllerTest extends TestCase {
                 )
         );
 
-        ResultsSummaryController resultsSummaryController = new ResultsSummaryController(new TimeService(fileService), driverService, eventTypeService);
+        ResultsSummaryController resultsSummaryController = new ResultsSummaryController(new EventService(driverService, eventTypeService), new TimeService(fileService), driverService);
         EventResponse event = resultsSummaryController.getTimes();
         assertThat(event.getResults().get(0).getTotalTime()).isEqualTo(795900);
     }
