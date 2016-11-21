@@ -6,14 +6,14 @@ import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
 
-public class ResultsSummary {
+public class DriverResults {
 
     private String carNumber;
     private Map<String, List<Time>> layouts;
     private long total;
 
 
-    public ResultsSummary(String carNumber) {
+    public DriverResults(String carNumber) {
         this.carNumber = carNumber;
         layouts = new TreeMap<>();
     }
@@ -44,7 +44,7 @@ public class ResultsSummary {
 
     public void add(Time time) {
         String layout = time.getLayout();
-        layouts.putIfAbsent(layout,new ArrayList<Time>());
+        layouts.putIfAbsent(layout,new ArrayList<>());
         List<Time> layoutTimes = layouts.get(layout);
         layoutTimes.add(time);
     }

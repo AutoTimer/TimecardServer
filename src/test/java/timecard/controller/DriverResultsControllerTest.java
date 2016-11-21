@@ -6,7 +6,7 @@ import org.junit.runner.RunWith;
 import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
 import timecard.model.Driver;
-import timecard.responses.EventResponse;
+import timecard.responses.ResultsResponse;
 import timecard.model.RawTime;
 import timecard.service.DriverService;
 import timecard.service.EventTypeService;
@@ -20,7 +20,7 @@ import static org.mockito.Matchers.any;
 import static org.mockito.Mockito.when;
 
 @RunWith(MockitoJUnitRunner.class)
-public class ResultsSummaryControllerTest extends TestCase {
+public class DriverResultsControllerTest extends TestCase {
 
     @Mock
     private FileService fileService;
@@ -57,8 +57,8 @@ public class ResultsSummaryControllerTest extends TestCase {
                 )
         );
 
-        ResultsSummaryController resultsSummaryController = new ResultsSummaryController(new EventService(driverService, eventTypeService), new TimeService(fileService), driverService);
-        EventResponse event = resultsSummaryController.getTimes();
+        ResultsController resultsController = new ResultsController(new ResultsService(driverService, eventTypeService), new TimeService(fileService), driverService);
+        ResultsResponse event = resultsController.getTimes();
         assertThat(event.getResults().get(0).getTotalTime()).isEqualTo(795900);
     }
 }

@@ -5,17 +5,17 @@ import timecard.model.Layout;
 import java.util.ArrayList;
 import java.util.List;
 
-public class EventResponse {
+public class ResultsResponse {
 
     private List<Layout> layouts;
-    private List<ResultSummaryResponse> results;
+    private List<DriverResultsResponse> results;
 
-    public EventResponse(){
+    public ResultsResponse(){
         results = new ArrayList<>();
         layouts = new ArrayList<>();
     }
 
-    public EventResponse(List<Layout> layouts, List<ResultSummaryResponse> results) {
+    public ResultsResponse(List<Layout> layouts, List<DriverResultsResponse> results) {
         this.layouts = layouts;
         this.results = results;
     }
@@ -28,11 +28,11 @@ public class EventResponse {
         this.layouts = layouts;
     }
 
-    public List<ResultSummaryResponse> getResults() {
+    public List<DriverResultsResponse> getResults() {
         return results;
     }
 
-    public void setResults(List<ResultSummaryResponse> results) {
+    public void setResults(List<DriverResultsResponse> results) {
         this.results = results;
     }
 }

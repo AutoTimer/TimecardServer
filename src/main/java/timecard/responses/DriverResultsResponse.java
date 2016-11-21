@@ -8,7 +8,7 @@ import java.util.List;
 
 import static java.lang.Long.signum;
 
-public class ResultSummaryResponse {
+public class DriverResultsResponse {
 
     private String carNumber;
     private Driver driver;
@@ -17,7 +17,7 @@ public class ResultSummaryResponse {
     private long totalTime;
 
 
-    public ResultSummaryResponse(String carNumber, Driver driver, List<Time> times, long totalTime) {
+    public DriverResultsResponse(String carNumber, Driver driver, List<Time> times, long totalTime) {
         this.carNumber = carNumber;
         this.driver = driver;
         this.times = times;
@@ -56,7 +56,7 @@ public class ResultSummaryResponse {
         this.totalTime = totalTime;
     }
 
-    public static int compareByEventTypeClassAndTime(ResultSummaryResponse a, ResultSummaryResponse b) {
+    public static int compareByEventTypeClassAndTime(DriverResultsResponse a, DriverResultsResponse b) {
         if (a.getDriver().getEventType().equals(b.getDriver().getEventType())){
             if (a.getDriver().getClassName().equals(b.getDriver().getClassName())) {
                 return signum(a.getTotalTime() - b.getTotalTime());
