@@ -5,10 +5,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 import timecard.model.Results;
-import timecard.model.DriverResults;
 import timecard.model.Time;
-import timecard.responses.ResultsResponse;
 import timecard.responses.DriverResultsResponse;
+import timecard.responses.ResultsResponse;
 import timecard.service.DriverService;
 import timecard.service.TimeService;
 
@@ -40,7 +39,7 @@ public class ResultsController {
 
     private ResultsResponse buildResultsResponse(Results results) {
         List<DriverResultsResponse> driverResultsResponses = new ArrayList<>();
-        for (DriverResults summary : results.getResultByCompetitor().values()) {
+        results.getResultByCompetitor().values().forEach(summary -> {
             List<Time> timesToReturn = new ArrayList<>();
             summary.getLayouts().values().forEach(timesToReturn::addAll);
             driverResultsResponses.add(
@@ -50,7 +49,7 @@ public class ResultsController {
                             timesToReturn,
                             summary.getTotal())
             );
-        }
+        });
 
         driverResultsResponses.sort(DriverResultsResponse::compareByEventTypeClassAndTime);
         return new ResultsResponse(results.getLayouts(), driverResultsResponses);

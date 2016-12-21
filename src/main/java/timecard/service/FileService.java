@@ -22,7 +22,7 @@ public class FileService {
     public FileService() {
     }
 
-    synchronized public <T> List<T> readEntitiesFromFile(Class<T> clazz) {
+    public <T> List<T> readEntitiesFromFile(Class<T> clazz) {
         List<T> result = new ArrayList<>();
         SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd_");
         String filename = null;
@@ -39,14 +39,27 @@ public class FileService {
         return result;
     }
 
-    synchronized public void appendEntityToFile(Object object) {
+    public void appendEntityToFile(Object object) {
         Path path = null;
         try {
             SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd_");
             path = Paths.get(String.format("%s%s.csv", sdf.format(new Date()), object.getClass().getSimpleName().toLowerCase()));
             Files.write(path, (object.toString() + "\n").getBytes(), StandardOpenOption.CREATE, StandardOpenOption.APPEND);
         } catch (IOException e) {
-            LOG.error(String.format("Something went wrong appending to the file file: %s", path.getFileName()), e);
+            LOG.error(String.format("Something went wrong appending to the file: %s", path.getFileName()), e);
         }
+    }
+
+    public <T> boolean deleteFile(Class<T> clazz) {
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd_");
+        Path path = null;
+        try {
+            path = Paths.get(String.format("%s%s.csv", sdf.format(new Date()), clazz.getSimpleName().toLowerCase()));
+            Files.delete(path);
+        } catch (IOException e) {
+            LOG.info(String.format("Something went wrong deleting the file: %s", path.getFileName()), e);
+            return false;
+        }
+        return true;
     }
 }
