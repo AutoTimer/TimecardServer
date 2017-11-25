@@ -9,6 +9,7 @@ import timecard.model.Time;
 import timecard.responses.DriverResultsResponse;
 import timecard.responses.ResultsResponse;
 import timecard.service.DriverService;
+import timecard.service.ResultsService;
 import timecard.service.TimeService;
 
 import java.util.ArrayList;
@@ -39,7 +40,7 @@ public class ResultsController {
 
     private ResultsResponse buildResultsResponse(Results results) {
         List<DriverResultsResponse> driverResultsResponses = new ArrayList<>();
-        results.getResultByCompetitor().values().forEach(summary -> {
+        results.getResultsByCompetitor().values().forEach(summary -> {
             List<Time> timesToReturn = new ArrayList<>();
             summary.getLayouts().values().forEach(timesToReturn::addAll);
             driverResultsResponses.add(

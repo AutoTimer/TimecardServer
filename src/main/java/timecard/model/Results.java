@@ -26,7 +26,7 @@ public class Results {
         }
     }
 
-    public Map<String, DriverResults> getResultByCompetitor() {
+    public Map<String, DriverResults> getResultsByCompetitor() {
         return resultByCompetitor;
     }
 

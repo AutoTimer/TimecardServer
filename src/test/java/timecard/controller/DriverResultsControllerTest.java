@@ -6,12 +6,9 @@ import org.junit.runner.RunWith;
 import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
 import timecard.model.Driver;
-import timecard.responses.ResultsResponse;
 import timecard.model.RawTime;
-import timecard.service.DriverService;
-import timecard.service.EventTypeService;
-import timecard.service.FileService;
-import timecard.service.TimeService;
+import timecard.responses.ResultsResponse;
+import timecard.service.*;
 
 import java.util.Arrays;
 
@@ -35,6 +32,7 @@ public class DriverResultsControllerTest extends TestCase {
     public void testCalculateResultSummary() throws Exception {
         when(driverService.getDriver(any())).thenReturn(driver);
         when(driver.getEventType()).thenReturn("NATB");
+        when(driver.getClassName()).thenReturn("A1");
         when(fileService.readEntitiesFromFile(RawTime.class)).thenReturn(
                 Arrays.asList(
                         new RawTime("1,1,0,49400,FALSE,0,alec"),

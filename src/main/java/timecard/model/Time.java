@@ -30,6 +30,11 @@ public class Time {
         this.layout = layout;
     }
 
+    public Time(String carNumber, String layout, int elapsedTimeWithPenalties, boolean wrongTest, int penalties) {
+        this(layout,elapsedTimeWithPenalties,wrongTest,penalties);
+        this.carNumber = carNumber;
+    }
+
     public Time() {
         this(null,0,false,0);
     }
