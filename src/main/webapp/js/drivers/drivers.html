@@ -1,7 +1,12 @@
+<style>
+    input.ng-invalid {
+      background-color:pink;
+    }
+</style>
+
 <div ng-controller="driversCtrl as driversCtrl">
-
+    <h1>Drivers List</h1>
     <table>
-
         <tr>
             <th>carNumber</th>
             <th>className</th>
@@ -19,5 +24,19 @@
             <td>{{driver.carCapacity}}</td>
         </tr>
     </table>
+
+    <h2>Create New Driver</h2>
+    <form name="driverForm" novalidate class="css-form">
+        <label>carNumber: <input type="text" ng-model="driver.carNumber" required/></label><br />
+        <label>className: <input type="text" ng-model="driver.className" required/></label><br />
+        <label>name: <input type="text" ng-model="driver.name" required/></label><br />
+        <label>eventType: <input type="text" ng-model="driver.eventType" required/></label><br />
+        <label>carDescription: <input type="text" ng-model="driver.carDescription" required/></label><br />
+        <label>carCapacity: <input type="text" ng-model="driver.carCapacity" required/></label><br />
+
+        <input type="button" ng-click="reset(driver)" value="Reset" />
+        <input type="submit" ng-click="create(driver)" value="Save" ng-disabled="driverForm.$invalid">
+    </form>
+
 
 </div>

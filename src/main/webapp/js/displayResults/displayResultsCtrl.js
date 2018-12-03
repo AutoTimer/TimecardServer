@@ -12,7 +12,7 @@
         summaryPromise.then(function(data){
             displayResults.resultSummaryResponse = data;
         },function(reason){
-
+            console.log(reason);
         });
     }
 }());

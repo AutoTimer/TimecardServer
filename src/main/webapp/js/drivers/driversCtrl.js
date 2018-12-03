@@ -1,19 +1,37 @@
-(function() {
-    'use strict';
+angular.module('app.drivers')
+  .controller('driversCtrl',
+    ['$scope',
+     'driversService',
+     function($scope, driversService){
+       var driversCtrl = this;
 
-    angular.module('app.drivers').controller('driversCtrl', driversCtrl);
+       function loadDrivers(){
+           var promise = driversService.getDrivers();
+                promise.then(function(data){
+                  driversCtrl.drivers = data;
+                },function(reason){
+                  console.log(reason);
+                });
+       }
 
-    driversCtrl.$inject = ['driversService'];
+       $scope.create = function(driver){
+         var promise = driversService.create(driver);
+         promise.then(
+           function(data){
+             driversCtrl.newDriver = data;
+             loadDrivers();
+           },
+           function(reason){
+             console.log(reason);
+           });
+       }
 
-    function driversCtrl(driversService) {
-        var driversCtrl = this;
+       $scope.reset = function(formModel){
+         angular.copy({},formModel);
+       }
 
-        var promise = driversService.getDrivers();
-        promise.then(function(data){
-            driversCtrl.drivers = data;
-        },function(reason){
-
-        });
-    }
-}());
+       loadDrivers();
+     }
+    ]
+  );
 

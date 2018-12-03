@@ -8,9 +8,29 @@
 
         return {
             getDrivers:function(){
+                        var deferred = $q.defer();
+                        var getUrl = "http://localhost:8080/driver";
+                        $http.get(getUrl)
+                            .success(function (data) {
+                                deferred.resolve(data);
+                            }).error(function (data, status) {
+                                deferred.reject(data+":"+status);
+                            });
+                        return deferred.promise;
+                    },
+
+
+
+            create:function(driver){
                 var deferred = $q.defer();
-                var getUrl = "http://localhost:8080/driver";
-                $http.get(getUrl)
+                var url = "http://localhost:8080/driver";
+                var config = {
+                  headers : {
+                    'Content-Type': 'application/json'
+                  }
+                }
+
+                $http.post(url, driver, config)
                     .success(function (data) {
                         deferred.resolve(data);
                     }).error(function (data, status) {
