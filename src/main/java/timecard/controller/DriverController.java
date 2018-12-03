@@ -1,10 +1,7 @@
 package timecard.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import timecard.model.Driver;
 import timecard.service.FileService;
 
@@ -15,6 +12,11 @@ import java.util.List;
 public class DriverController {
     @Autowired
     private FileService driverService;
+
+    @RequestMapping(method = RequestMethod.DELETE)
+    public void deleteDriver(@RequestBody Driver driver){
+        driverService.deleteEntry(driver);
+    }
 
     @RequestMapping(method = RequestMethod.POST, consumes = "application/json")
     public void saveDriver(@RequestBody Driver driver) {

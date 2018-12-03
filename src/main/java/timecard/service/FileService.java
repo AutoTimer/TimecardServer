@@ -14,6 +14,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class FileService {
@@ -50,7 +51,7 @@ public class FileService {
         }
     }
 
-    public <T> boolean deleteFile(Class<T> clazz) {
+    <T> boolean deleteFile(Class<T> clazz) {
         SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd_");
         Path path = null;
         try {
@@ -61,5 +62,27 @@ public class FileService {
             return false;
         }
         return true;
+    }
+
+    public boolean deleteEntry(Object object){
+        List existingList = readEntitiesFromFile(object.getClass());
+        List newList = (List) existingList
+                .stream()
+                .map(Object::toString)
+                .filter(s -> !object.toString().equals(s))
+                .collect(Collectors.toList());
+        deleteFile(object.getClass());
+        newList.stream().map(s -> {
+            try {
+                return object.getClass().getConstructor(String.class).newInstance(s);
+            } catch (InstantiationException |
+                    IllegalAccessException |
+                    InvocationTargetException |
+                    NoSuchMethodException e) {
+                LOG.error("something went bang",e);
+                return false;
+            }
+        }).forEach(this::appendEntityToFile);
+        return newList.size() == existingList.size() - 1;
     }
 }
