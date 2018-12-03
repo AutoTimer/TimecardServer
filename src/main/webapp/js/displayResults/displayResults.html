@@ -1,0 +1,40 @@
+<div ng-controller="displayResultsCtrl as displayResults" style="margin:15px">
+
+    <table style="width:100%">
+
+        <tr>
+            <th rowspan="2">Event Type</th>
+            <th rowspan="2">Class</th>
+            <th rowspan="2">Car Number</th>
+            <th rowspan="2">Driver</th>
+            <th rowspan="2">Car</th>
+            <th rowspan="2">Capacity</th>
+            <th colspan="{{layout.noOfRuns}}" ng-repeat="layout in displayResults.resultSummaryResponse.layouts">
+                Test
+            </th>
+            <th rowspan="2">Total Run Times</th>
+        </tr>
+        <tr>
+            <th colspan="{{layout.noOfRuns}}" ng-repeat="layout in displayResults.resultSummaryResponse.layouts">
+                {{layout.name}}
+            </th>
+        </tr>
+
+        <tr ng-repeat="resultSummary in displayResults.resultSummaryResponse.results">
+            <td>{{resultSummary.driver.eventType}}</td>
+            <td>{{resultSummary.driver.className}}</td>
+            <td>{{resultSummary.carNumber}}</td>
+            <td>{{resultSummary.driver.name}}</td>
+            <td>{{resultSummary.driver.carDescription}}</td>
+            <td>{{resultSummary.driver.carCapacity}}</td>
+            <td ng-repeat="time in resultSummary.times" ng-class="{'penalty': time.penalties!=0, 'wrong-test': time.wrongTest, 'strike': time.dropped}">
+                <div ng-if="time.penalties!=0" class="penaltyCount">
+                    {{time.penalties}}
+                </div>
+                {{time.elapsedTimeWithPenalties|seconds}}
+            </td>
+            <td style="text-align: right">{{resultSummary.totalTime|seconds}}</td>
+        </tr>
+    </table>
+
+</div>

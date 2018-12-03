@@ -1,4 +1,4 @@
-angular.module('displayResults').filter('seconds', function () {
+angular.module('app.displayResults').filter('seconds', function () {
     return function (value) {
         var millis = value%1000;
         var seconds = (value-millis)/1000;

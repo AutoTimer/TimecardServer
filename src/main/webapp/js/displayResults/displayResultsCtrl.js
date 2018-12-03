@@ -1,7 +1,7 @@
 (function() {
     'use strict';
 
-    angular.module('displayResults').controller('displayResultsCtrl', displayResultsCtrl);
+    angular.module('app.displayResults').controller('displayResultsCtrl', displayResultsCtrl);
 
     displayResultsCtrl.$inject = ['resultsService'];
 

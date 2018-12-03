@@ -1,4 +1,9 @@
-angular.module('displayResults', []);
 angular.module('app', [
-    'displayResults'
-]);
+  'ngRoute',
+  'app.displayResults',
+  'app.drivers'
+]).
+config(['$locationProvider', '$routeProvider', function($locationProvider, $routeProvider) {
+  $locationProvider.hashPrefix('!');
+  $routeProvider.otherwise({redirectTo: '/displayResults'});
+}]);

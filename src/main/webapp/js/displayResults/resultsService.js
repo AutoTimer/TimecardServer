@@ -1,6 +1,6 @@
 (function() {
     'use strict';
-    angular.module('displayResults').service('resultsService', resultsService);
+    angular.module('app.displayResults').service('resultsService', resultsService);
 
     resultsService.$inject = ['$q', '$http'];
 
