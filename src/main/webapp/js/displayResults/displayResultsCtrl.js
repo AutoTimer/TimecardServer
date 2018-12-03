@@ -8,7 +8,6 @@
     function displayResultsCtrl(resultsService) {
         var displayResults = this;
 
-
         var summaryPromise = resultsService.getSummary();
         summaryPromise.then(function(data){
             displayResults.resultSummaryResponse = data;

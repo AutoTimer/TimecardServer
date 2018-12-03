@@ -1,1 +1,23 @@
-hello drivers!
+<div ng-controller="driversCtrl as driversCtrl">
+
+    <table>
+
+        <tr>
+            <th>carNumber</th>
+            <th>className</th>
+            <th>name</th>
+            <th>eventType</th>
+            <th>carDescription</th>
+            <th>carCapacity</th>
+        </tr>
+        <tr ng-repeat="driver in driversCtrl.drivers">
+            <td>{{driver.carNumber}}</td>
+            <td>{{driver.className}}</td>
+            <td>{{driver.name}}</td>
+            <td>{{driver.eventType}}</td>
+            <td>{{driver.carDescription}}</td>
+            <td>{{driver.carCapacity}}</td>
+        </tr>
+    </table>
+
+</div>
