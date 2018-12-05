@@ -8,18 +8,16 @@
 
         return {
             getDrivers:function(){
-                        var deferred = $q.defer();
-                        var getUrl = "http://localhost:8080/driver";
-                        $http.get(getUrl)
-                            .success(function (data) {
-                                deferred.resolve(data);
-                            }).error(function (data, status) {
-                                deferred.reject(data+":"+status);
-                            });
-                        return deferred.promise;
-                    },
-
-
+              var deferred = $q.defer();
+              var getUrl = "http://localhost:8080/driver";
+              $http.get(getUrl)
+                .success(function (data) {
+                    deferred.resolve(data);
+                }).error(function (data, status) {
+                    deferred.reject(data+":"+status);
+                });
+              return deferred.promise;
+            },
 
             create:function(driver){
                 var deferred = $q.defer();
@@ -37,6 +35,28 @@
                         deferred.reject(data+":"+status);
                     });
                 return deferred.promise;
+            },
+
+            delete:function(driver){
+              if(!confirm("Are you sure you want to delete this driver?")){
+                return;
+              };
+              var deferred = $q.defer();
+              var url = "http://localhost:8080/driver";
+              var config = {
+                data: driver,
+                headers : {
+                  'Content-Type': 'application/json'
+                }
+              }
+
+              $http.delete(url, config)
+                .success(function (data) {
+                  deferred.resolve(data);
+                }).error(function (data, status) {
+                  deferred.reject(data+":"+status);
+                });
+              return deferred.promise;
             }
         }
 

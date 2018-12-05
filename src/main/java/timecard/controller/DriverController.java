@@ -3,7 +3,7 @@ package timecard.controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import timecard.model.Driver;
-import timecard.service.FileService;
+import timecard.service.DriverService;
 
 import java.util.List;
 
@@ -11,11 +11,11 @@ import java.util.List;
 @RequestMapping("/driver")
 public class DriverController {
     @Autowired
-    private FileService driverService;
+    private DriverService driverService;
 
     @RequestMapping(method = RequestMethod.DELETE)
     public void deleteDriver(@RequestBody Driver driver){
-        driverService.deleteEntry(driver);
+        driverService.deleteDriver(driver);
     }
 
     @RequestMapping(method = RequestMethod.POST, consumes = "application/json")
@@ -25,6 +25,6 @@ public class DriverController {
 
     @RequestMapping(method = RequestMethod.GET)
     public List<Driver> getDrivers() {
-        return driverService.readEntitiesFromFile(Driver.class);
+        return driverService.getDrivers();
     }
 }

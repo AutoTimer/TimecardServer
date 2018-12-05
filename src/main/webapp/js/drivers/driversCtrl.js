@@ -26,6 +26,17 @@ angular.module('app.drivers')
            });
        }
 
+       $scope.delete = function(driver){
+         var promise = driversService.delete(driver);
+         promise.then(
+           function(data){
+             loadDrivers();
+           },
+           function(reason){
+             console.log(reason);
+           });
+       }
+
        $scope.reset = function(formModel){
          angular.copy({},formModel);
        }

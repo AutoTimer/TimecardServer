@@ -14,6 +14,7 @@
             <th>eventType</th>
             <th>carDescription</th>
             <th>carCapacity</th>
+            <th>delete</th>
         </tr>
         <tr ng-repeat="driver in driversCtrl.drivers">
             <td>{{driver.carNumber}}</td>
@@ -22,6 +23,7 @@
             <td>{{driver.eventType}}</td>
             <td>{{driver.carDescription}}</td>
             <td>{{driver.carCapacity}}</td>
+            <td><button ng-click="delete(driver)">Delete</button></td>
         </tr>
     </table>
 
