@@ -9,7 +9,7 @@
         return {
             getSummary:function(){
                 var deferred = $q.defer();
-                var getUrl = "http://localhost:8080/results-summary";
+                var getUrl = "results-summary";
                 $http.get(getUrl)
                     .success(function (data) {
                         deferred.resolve(data);

@@ -9,7 +9,7 @@
         return {
             getDrivers:function(){
               var deferred = $q.defer();
-              var getUrl = "http://localhost:8080/driver";
+              var getUrl = "driver";
               $http.get(getUrl)
                 .success(function (data) {
                     deferred.resolve(data);
@@ -21,7 +21,7 @@
 
             create:function(driver){
                 var deferred = $q.defer();
-                var url = "http://localhost:8080/driver";
+                var url = "driver";
                 var config = {
                   headers : {
                     'Content-Type': 'application/json'
@@ -42,7 +42,7 @@
                 return;
               };
               var deferred = $q.defer();
-              var url = "http://localhost:8080/driver";
+              var url = "driver";
               var config = {
                 data: driver,
                 headers : {
