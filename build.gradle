@@ -7,9 +7,13 @@ buildscript {
     }
 }
 
+plugins {
+    id 'org.springframework.boot' version '2.1.7.RELEASE'
+}
+
 apply plugin: 'java'
 sourceCompatibility = '1.8'
-apply plugin:'spring-boot'
+apply plugin: 'io.spring.dependency-management'
 
 repositories {
 
