@@ -3,12 +3,12 @@ buildscript {
         mavenCentral()
     }
     dependencies {
-        classpath("org.springframework.boot:spring-boot-gradle-plugin:1.2.7.RELEASE")
+        classpath("org.springframework.boot:spring-boot-gradle-plugin:${springVersion}")
     }
 }
 
 plugins {
-    id 'org.springframework.boot' version '2.1.7.RELEASE'
+    id 'org.springframework.boot' version "${springVersion}"
 }
 
 apply plugin: 'java'
@@ -22,15 +22,11 @@ repositories {
 
 dependencies {
     compile 'org.slf4j:slf4j-api:1.7.5'
-    compile("org.springframework.boot:spring-boot-starter-web:1.2.7.RELEASE") {
+    compile("org.springframework.boot:spring-boot-starter-web:${springVersion}") {
         exclude module: 'spring-boot-starter-tomcat'
     }
-    compile ("org.springframework.boot:spring-boot-starter-jetty")
-    compile ("org.springframework.boot:spring-boot-starter-actuator")
+    compile ("org.springframework.boot:spring-boot-starter-jetty:${springVersion}")
     compile 'org.webjars:angularjs:1.3.14'
-    compile "org.springframework:spring-webmvc:4.0.1.RELEASE"
-    compile files('./clockwork-1.2.0.jar')
-
     testCompile "org.mockito:mockito-core:1.+"
     testCompile 'junit:junit:4.11'
     testCompile 'org.assertj:assertj-core:3.2.0'
