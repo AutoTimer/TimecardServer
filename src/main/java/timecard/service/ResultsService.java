@@ -35,7 +35,7 @@ public class ResultsService {
                 for (int runNo = 0; runNo < times.size(); runNo++) {
                     Time time = times.get(runNo);
                     long wrongTestTime = getFastestTimeInClass(results, carNumber, layoutTimesMap.getKey(), runNo) + WRONG_TEST_PENALTY;
-                    if (time.isWrongTest() || time.getElapsedTimeWithPenalties() > wrongTestTime) {
+                    if (time.isWrongTest() || (time.getElapsedTimeWithPenalties() > wrongTestTime && wrongTestTime != WRONG_TEST_PENALTY)) {
                         time.setElapsedTimeWithPenalties(wrongTestTime);
                     }
                     totalTimeForCar += time.getElapsedTimeWithPenalties();
