@@ -25,10 +25,9 @@ public class FileService {
 
     public <T> List<T> readEntitiesFromFile(Class<T> clazz) {
         List<T> result = new ArrayList<>();
-        SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd_");
         String filename = null;
         try {
-            filename = String.format("%s%s.csv", sdf.format(new Date()), clazz.getSimpleName().toLowerCase());
+            filename = String.format("%s%s.csv", getDateString(), clazz.getSimpleName().toLowerCase());
             List<String> lines = Files.readAllLines(Paths.get(filename));
             for (String line : lines) {
                 result.add(clazz.getConstructor(String.class).newInstance(line));
@@ -38,6 +37,11 @@ public class FileService {
             LOG.warn(String.format("Something went wrong reading the file: %s", filename), e);
         }
         return result;
+    }
+
+    private String getDateString() {
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd_");
+        return sdf.format(new Date());
     }
 
     public void appendEntityToFile(Object object) {
